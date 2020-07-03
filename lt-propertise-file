@@ -1,0 +1,61 @@
+AUTH
+____
+#Redis Info
+spring.redis.host = redis.qrengine.lt.bka.sh
+spring.redis.port = 6379
+
+jwt.secret=
+jwt.expiration=
+#aws
+aws.region=ap-southeast-1
+#RSA keys
+encryption.key.bucket=com.bkash.qrengine.encryption.lt/tls
+encryption.public.key.location=public.key
+encryption.private.key.location=private.key
+#swagger api-gateway
+nlb.url=http://authentication.qrengine.lt.bka.sh
+vpc.link=und1cq
+
+CORE
+____
+#Redis Info
+redis.host = redis.qrengine.lt.bka.sh
+redis.port = 6379
+
+#aws
+aws.region = ap-southeast-1
+
+#aws s3
+aws.s3.bucket = com.bkash.qrengine.storage.lt
+aws.s3.bucket.temp = com.bkash.qrengine.storage.temp.lt
+
+qr.domain = https://cdn.qrengine.lt.bka.sh/
+
+#cloudfront
+ssm.cloudfrontkey.keypairid=/lt/qrengine/core/cloudFrontKeyPairId
+ssm.cloudfrontkey.string=/lt/qrengine/core/cloudFrontKeyString
+cloudfront.distribution.domain=cdntemp.qrengine.lt.bka.sh
+FETCH
+_____
+#Redis Info
+spring.redis.host=redis.qrengine.lt.bka.sh
+spring.redis.port=6379
+#aws
+aws.region=ap-southeast-1
+qr.domain=https://cdn.qrengine.lt.bka.sh/
+# this secret should be same as authentication module
+jwt.secret=
+jwt.expiration=
+#swagger api-gateway
+nlb.url=http://fetch.qrengine.lt.bka.sh
+vpc.link=und1cq
+
+GEN
+___
+qr.core.url=http://lt-qrengine-core:6000/qr-core/api
+# this secret should be same as authentication module
+jwt.secret=
+jwt.expiration=
+#swagger api-gateway
+nlb.url=http://generator.qrengine.lt.bka.sh
+vpc.link=und1cq
