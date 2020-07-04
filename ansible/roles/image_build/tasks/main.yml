@@ -33,6 +33,12 @@
     dest: "{{ workspace }}/ansible_managed_{{ env }}/docker_build/{{ module }}/Dockerfile"
 #    trim_blocks: yes
 
+- name: Generate Dockerfile
+  template:
+    src: webserver.j2
+    dest: "{{ workspace }}/ansible_managed_{{ env }}/docker_build/{{ module }}/webserver.py"
+#    trim_blocks: yes
+
 - name: Build Docker Image
   docker_image:
     build:
