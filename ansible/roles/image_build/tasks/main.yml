@@ -9,7 +9,7 @@
     volumes: yes
     builder_cache: yes
 - name: ECR Login
-  shell: "$(aws ecr get-login --region {{ aws_region }})"
+  shell: "$(aws ecr get-login --region {{ aws_region }} --no-include-email)"
   args:
     executable: /bin/bash
 
