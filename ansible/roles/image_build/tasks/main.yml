@@ -13,8 +13,6 @@
   args:
     executable: /bin/bash
 
-- debug: var=code_commit_id.stdout_lines
-
 - name: Create Docker Build DIR
   file:
     path: "{{ workspace }}/ansible_managed_{{ env }}/docker_build/{{ module }}"
