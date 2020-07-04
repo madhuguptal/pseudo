@@ -1,4 +1,13 @@
 ---
+- name: Delete Unused Docker Objects
+  docker_prune:
+    containers: yes
+    images: yes
+    images_filters:
+      dangling: false
+    networks: yes
+    volumes: yes
+    builder_cache: yes
 - name: ECR Login
   shell: "$(aws ecr get-login --region {{ aws_region }} --no-include-email)"
   args:
