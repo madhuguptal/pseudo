@@ -13,7 +13,7 @@ spec:
         spec:
             containers:
                 - name: {{ env }}-{{ project_name }}-{{ module }}
-                  image: {{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ env }}-{{ project_name }}-{{ module }}:latest
+                  image: {{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ env }}-{{ project_name }}-{{ module }}:v1.1
                   imagePullPolicy: Always
                   ports:
                       - containerPort: 8181
