@@ -46,5 +46,5 @@
     state: present
     source: build
   notify:
-    - Tag Image and Push to ECR [GIT COMMIT HASH]
+#    - Tag Image and Push to ECR [GIT COMMIT HASH]
     - Tag Image and Push to ECR [LATEST]
