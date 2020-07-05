@@ -7,7 +7,7 @@
 
 - name: Generate deployment file
   template:
-    src: deployment_defination_file.yml
+    src: deployment_defination_file.j2
     dest: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/deployment_defination_file.yml"
 #    trim_blocks: yes
 - name: deploy deploy deploy
