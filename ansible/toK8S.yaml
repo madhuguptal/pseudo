@@ -4,4 +4,4 @@
   connection: local
   hosts: localhost
   roles:
-    - toK8S.yaml
+    - toK8S
