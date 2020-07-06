@@ -8,5 +8,6 @@ spec:
     - port: 8181
       targetPort: 8181
       protocol: TCP
+  type: ClusterIP
   selector:
     app: {{ env }}-{{ project_name }}-{{ module }}
