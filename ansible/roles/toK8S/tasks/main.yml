@@ -14,3 +14,13 @@
   shell:
     cmd: kubectl apply -f deployment_defination_file.yml
     chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
+
+- name: Generate service file
+  template:
+    src: service.j2
+    dest: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/service.yml"
+#    trim_blocks: yes
+- name: deploy deploy deploy
+  shell:
+    cmd: kubectl apply -f service.yml
+    chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
