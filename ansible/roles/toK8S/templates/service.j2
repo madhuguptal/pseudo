@@ -8,6 +8,5 @@ spec:
     - port: 8181
       targetPort: 8181
       protocol: TCP
-  type: NodePort
   selector:
     app: {{ env }}-{{ project_name }}-{{ module }}
