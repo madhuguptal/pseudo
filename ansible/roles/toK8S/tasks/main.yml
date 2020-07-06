@@ -25,14 +25,6 @@
     cmd: kubectl apply -f service.yml
     chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
 
-- name: Generate ingress file
-  copy:
-    src: /srv/myfiles/foo.conf
-    dest: /etc/foo.conf
-    owner: foo
-    group: foo
-    mode: '0644'
-
 - name: deploy deploy deploy
   shell:
     cmd: kubectl apply -f alb-ingress.yml
