@@ -114,16 +114,11 @@ metadata:
     alb.ingress.kubernetes.io/target-type: instance
     alb.ingress.kubernetes.io/inbound-cidrs: 0.0.0.0/0
     alb.ingress.kubernetes.io/certificate-arn:  arn:aws:acm:ap-southeast-1:354285753755:certificate/44e11307-55f4-4365-a0fe-0c408af4f7fa
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
   labels:
     app: public-alb
 spec:
   rules:
-  - http:
-      paths:
-       - path: /*
-         backend:
-           serviceName: ssl-redirect
-           servicePort: use-annotation
   - host: ring.labs.bka.sh
     http:
       paths:
