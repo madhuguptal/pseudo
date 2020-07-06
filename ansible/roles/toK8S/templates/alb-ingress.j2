@@ -1,0 +1,134 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: alb-ingress-controller
+  name: alb-ingress-controller
+  namespace:  ring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: alb-ingress-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: alb-ingress-controller
+    spec:
+      containers:
+        - name: alb-ingress-controller
+          args:
+            - --ingress-class=alb
+            - --cluster-name=one_ring_to_run_them_all
+
+            # AWS VPC ID this ingress controller will use to create AWS resources.
+            # If unspecified, it will be discovered from ec2metadata.
+            # - --aws-vpc-id=vpc-xxxxxx
+
+            # AWS region this ingress controller will operate in.
+            # If unspecified, it will be discovered from ec2metadata.
+            # List of regions: http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region
+            - --aws-region=ap-southeast-1
+
+            # Enables logging on all outbound requests sent to the AWS API.
+            # If logging is desired, set to true.
+            #- ---aws-api-debug
+            # Maximum number of times to retry the aws calls.
+            # defaults to 10.
+            # - --aws-max-retries=10
+          image: docker.io/amazon/aws-alb-ingress-controller:v1.1.5
+      serviceAccountName: alb-ingress-controller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: alb-ingress-controller
+  name: alb-ingress-controller
+rules:
+  - apiGroups:
+      - ""
+      - extensions
+    resources:
+      - configmaps
+      - endpoints
+      - events
+      - ingresses
+      - ingresses/status
+      - services
+    verbs:
+      - create
+      - get
+      - list
+      - update
+      - watch
+      - patch
+  - apiGroups:
+      - ""
+      - extensions
+    resources:
+      - nodes
+      - pods
+      - secrets
+      - services
+      - namespaces
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: alb-ingress-controller
+  name: alb-ingress-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: alb-ingress-controller
+subjects:
+  - kind: ServiceAccount
+    name: alb-ingress-controller
+    namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: alb-ingress-controller
+  name: alb-ingress-controller
+  namespace: kube-system
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: private-alb
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/subnets: subnet-4978670f, subnet-bf092df6, subnet-0d0fc9c4095d96e08
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'  
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/inbound-cidrs: 0.0.0.0/0
+    #alb.ingress.kubernetes.io/certificate-arn: {{ .Values.alb_ingress.certificate_arn }}
+    #alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+    #external-dns.alpha.kubernetes.io/hostname: admin.{{ .Values.domain_name }}, callback.{{ .Values.domain_name }}, admin-app.{{ .Values.domain_name }}
+  labels:
+    app: public-alb
+spec:
+  rules:
+  - http:
+      paths:
+       - path: /*
+         backend:
+           serviceName: ssl-redirect
+           servicePort: use-annotation
+  - host: ring.labs.bka.sh
+    http:
+      paths:
+        - backend:
+            serviceName: {{ env }}-{{ project_name }}-{{ module }}
+            servicePort: 8181

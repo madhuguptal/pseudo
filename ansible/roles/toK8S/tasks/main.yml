@@ -24,3 +24,13 @@
   shell:
     cmd: kubectl apply -f service.yml
     chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
+
+- name: Generate ingress file
+  template:
+    src: alb-ingress.j2
+    dest: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/alb-ingress.yml"
+#    trim_blocks: yes
+- name: deploy deploy deploy
+  shell:
+    cmd: kubectl apply -f alb-ingress.yml
+    chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
