@@ -1,7 +1,6 @@
-- hosts: deployment
+- hosts: localhost
   vars_files:
     - "./var_files/{{ env }}_varfile.yml"
   connection: local
-  hosts: localhost
   roles:
     - toK8S

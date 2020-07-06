@@ -28,4 +28,4 @@
 - name: deploy deploy deploy
   shell:
     cmd: kubectl apply -f alb-ingress.yml
-    chdir: "{{ workspace }}/ansible/roles/toK8S/templates//"
+    chdir: "{{ workspace }}/ansible/roles/toK8S/templates/"
