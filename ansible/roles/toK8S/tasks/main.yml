@@ -26,11 +26,14 @@
     chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
 
 - name: Generate ingress file
-  template:
-    src: alb-ingress.j2
-    dest: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/alb-ingress.yml"
-#    trim_blocks: yes
+  copy:
+    src: /srv/myfiles/foo.conf
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: '0644'
+
 - name: deploy deploy deploy
   shell:
     cmd: kubectl apply -f alb-ingress.yml
-    chdir: "{{ workspace }}/ansible_managed_{{ env }}/k8s_related/{{ module }}/"
+    chdir: "{{ workspace }}/ansible/roles/toK8S/templates//"
