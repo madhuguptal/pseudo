@@ -1,10 +1,10 @@
 def createStages(map) {
     stage_map = [:]
-    for( item in map) {
+    for (element in map) {        
         stage_map.put(
-            'test-' +item.value, 
+            'test-', 
             {
-                print item.value
+                echo "${element.key} ${element.value}"
             }
         ); 
     } 
@@ -18,7 +18,7 @@ pipeline {
     stage('test') {
       steps{
         script { 
-            def map=[key1:'value1',key2:'value2']
+            def map = [Io: 1, Europa: 2, Ganymed: 3]
             parallel(createStages(map)) }
       }
     }
