@@ -1,47 +1,28 @@
-def f() {
-   return [2, 3]
-}
- 
-(   a, b) = f()
 pipeline {
-    agent any
+    agent none
     stages {
-        stage("to ECR") {
+        stage('Parallel Stage') {
             parallel {
-                stage('p1') {
+                stage('Stage 1') {
                     steps {
-                        script {
-                            print a
-                        }
+                        echo "Stage 1"
                     }
                 }
-                stage('p2') {
+                stage('Stage 2') {
                     steps {
                         script {
-                            sh "echo ff"
-                        }
-                    }
-                }
-                stage('p3') {
-                    steps {
-                        script {
-                            sh "echo ff"
-                        }
-                    }
-                }
-                stage('p4') {
-                    steps {
-                        script {
-                            sh "echo ff"
+                            parallel (
+                                "Stage 2.1.": {
+                                    echo "Stage 2.1."
+                                },
+                                "Stage 2.2.": {
+                                    echo "Stage 2.2."
+                                }
+                            )
                         }
                     }
                 }
             }
         }
-        stage("to K8S") {
-            steps {
-                sh "#ansible-playbook ansible/toK8S.yaml -e workspace=${workspace} -e module=hello -e env=sit"
-        	}
-        }
     }
-}
+} 
