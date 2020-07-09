@@ -18,7 +18,7 @@ pipeline {
     stage('test') {
       steps{
         script { 
-            aa = ["a","b","cc"]
+            aa = ["a":"a","b":"b","cc":"df"]
             parallel(createStages(aa)) }
       }
     }
