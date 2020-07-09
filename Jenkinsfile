@@ -32,7 +32,7 @@ pipeline {
             stage('cba') {
                 steps {
                     script {
-
+                        sh "echo 'aaa'"
                     }
                 }
             }
