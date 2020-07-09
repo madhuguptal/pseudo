@@ -1,8 +1,8 @@
 def createStages(input1) {
     stage_map = [:]
-for(item in input1){
+for(int i in input1){
         stage_map.put(
-            'deploying-' +item, 
+            'deploying-' +itemZ, 
             {
                 print "aa"
             }
