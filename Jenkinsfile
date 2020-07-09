@@ -3,9 +3,9 @@ def createStages(input1) {
     for(int i in input1) { 
         def (modName, deployBool) = i.tokenize( ',' )
         stage_map.put(
-            'test-' +modName, 
+            'packBuild-' +modName, 
             {
-                print deployBool
+                sh "#packer build -var-file variable.json -var 'Version=halum}' capp-modName.json" + modName
             }
         ); 
     } 
