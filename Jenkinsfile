@@ -1,9 +1,9 @@
-def createStages() {
+def createStages(input1) {
   stage_map = [:]
   stage_map.put(
     'test-1', 
     {
-      sh 'whoami'
+      sh 'echo ${IBRNCH}'
     }
     )
   stage_map.put('test-2', {echo 'test2'})
@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('test') {
       steps{
-        script { parallel(createStages()) }
+        script { parallel(createStages([1,2])) }
       }
     }
   }
