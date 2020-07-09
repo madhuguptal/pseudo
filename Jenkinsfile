@@ -1,13 +1,13 @@
 def createStages(input1) {
     stage_map = [:]
-
+for(item in input1){
         stage_map.put(
-            'deploying-' +input1, 
+            'deploying-' +item, 
             {
                 print "aa"
             }
         ); 
-
+}
   stage_map.put('test-2', {echo 'test2'})
   return stage_map
 }
@@ -18,8 +18,8 @@ pipeline {
     stage('test') {
       steps{
         script { 
-            def a = "aabb"
-            parallel(createStages([a])) 
+            def list = [1,2,3,4]
+            parallel(createStages([list])) 
         }
       }
     }
