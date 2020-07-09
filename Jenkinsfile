@@ -20,5 +20,23 @@ pipeline {
         script { parallel(createStages(["a","b","c"])) }
       }
     }
+    stage('WarmUp') {
+        parallel {
+            stage('abc') {
+                steps {
+                    script {
+                        sh "echo 'aaa'"
+                    }
+                }
+            }
+            stage('abc') {
+                steps {
+                    script {
+
+                    }
+                }
+            }
+
+        }
   }
 }
