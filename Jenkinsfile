@@ -18,7 +18,7 @@ pipeline {
     stage('test') {
       steps{
         script { 
-            def a = [module1:"yes", module1:"no",]
+            def a = [module1:"yes", module1:"no"]
             parallel(createStages([a])) 
         }
       }
