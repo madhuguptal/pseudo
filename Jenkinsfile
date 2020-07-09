@@ -8,14 +8,28 @@ pipeline {
     stages {
         stage("to ECR") {
             parallel {
-                stage('NotifyWadiyans') {
+                stage('p1') {
+                    steps {
+                        script {
+                            print a
+                        }
+                    }
+                }
+                stage('p2') {
                     steps {
                         script {
                             sh "echo ff"
                         }
                     }
                 }
-                stage('Infra code Checkout') {
+                stage('p3') {
+                    steps {
+                        script {
+                            sh "echo ff"
+                        }
+                    }
+                }
+                stage('p4') {
                     steps {
                         script {
                             sh "echo ff"
