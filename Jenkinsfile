@@ -2,7 +2,7 @@ def createStages(input1) {
     stage_map = [:]
     for(int i in input1) { 
         stage_map.put(
-            'test-1', 
+            'test-'i, 
             {
                 print i
             }
