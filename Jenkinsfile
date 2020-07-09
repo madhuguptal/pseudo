@@ -17,8 +17,10 @@ pipeline {
   stages {
     stage('test') {
       steps{
-        a = "a b"
-        script { parallel(createStages([a])) }
+        script { 
+            a = "a b"
+            parallel(createStages([a])) 
+        }
       }
     }
     stage('WarmUp') {
