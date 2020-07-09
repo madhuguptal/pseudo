@@ -1,10 +1,10 @@
-def createStages(map) {
+def createStages(mapa) {
     stage_map = [:]
-    for (element in map) {        
+    for (element in mapa) {        
         stage_map.put(
             'test-', 
             {
-                echo "${element.key} ${element.value}"
+                echo "a"
             }
         ); 
     } 
