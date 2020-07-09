@@ -1,10 +1,10 @@
 def createStages(input1) {
     stage_map = [:]
-    for(int i in input1) { 
+    for(item in map)
         stage_map.put(
-            'test-' +i, 
+            'test-' +item.value, 
             {
-                print i
+                print item.value
             }
         ); 
     } 
@@ -18,8 +18,8 @@ pipeline {
     stage('test') {
       steps{
         script { 
-            aa = [a:1]
-            parallel(createStages(aa)) }
+            def map=[key1:'value1',key2:'value2']
+            parallel(createStages(map)) }
       }
     }
     stage('WarmUp') {
