@@ -1,6 +1,6 @@
 pipeline {
     agent none
-    stages {
+    node {
         stage('Parallel Stage') {
             parallel {
                 stage('Stage 1') {
@@ -12,11 +12,14 @@ pipeline {
                     steps {
                         script {
                             parallel (
-                                "Stage 2.1.": {
+                               def a = "1"
+                               if (a == "1") {
+                                    "Stage 2.1.": {
                                     echo "Stage 2.1."
-                                },
-                                "Stage 2.2.": {
-                                    echo "Stage 2.2."
+                                    },
+                                    "Stage 2.2.": {
+                                        echo "Stage 2.2."
+                                    }
                                 }
                             )
                         }
