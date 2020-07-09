@@ -18,8 +18,9 @@ pipeline {
     stage('test') {
       steps{
         script { 
-            a = "bb"
-            aa = ["a," + a ,"b","cc"]
+            wantToDeployModuleName1 = "yes"
+            wantToDeployModuleName1 = "no"
+            aa = ["moduleName1," + wantToDeployModuleName1 ,"moduleName2," + wantToDeployModuleName1]
             parallel(createStages(aa)) }
       }
     }
