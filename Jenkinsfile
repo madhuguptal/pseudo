@@ -7,11 +7,11 @@ pipeline {
     agent any
     stages {
         stage("to ECR") {
-            script {
-                println a
-                println b
-            }
             steps {
+                script {
+                    println a
+                    println b
+                }
                 sh "ansible-playbook ansible/image_build.yaml -e workspace=${workspace} -e module=hello -e env=sit"
         	}
         }
