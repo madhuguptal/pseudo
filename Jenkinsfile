@@ -11,15 +11,12 @@ pipeline {
                 stage('Stage 2') {
                     steps {
                         script {
-                            parallel (
-                               def a = "1"
-                               if (a == "1") {
-                                    "Stage 2.1.": {
-                                    echo "Stage 2.1."
-                                    },
-                                    "Stage 2.2.": {
-                                        echo "Stage 2.2."
-                                    }
+                            parallel (                         
+                                "Stage 2.1.": {
+                                echo "Stage 2.1."
+                                },
+                                "Stage 2.2.": {
+                                    echo "Stage 2.2."
                                 }
                             )
                         }
