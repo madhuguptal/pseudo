@@ -3,7 +3,7 @@ def createStages(input1) {
   stage_map.put(
     'test-1', 
     {
-      sh 'echo ${IBRNCH}'
+      sh 'echo ${input1}'
     }
     )
   stage_map.put('test-2', {echo 'test2'})
