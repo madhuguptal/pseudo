@@ -3,12 +3,14 @@ def f() {
 }
  
 (a, b) = f()
-println a
-println b
 pipeline {
     agent any
     stages {
         stage("to ECR") {
+            script {
+                println a
+                println b
+            }
             steps {
                 sh "ansible-playbook ansible/image_build.yaml -e workspace=${workspace} -e module=hello -e env=sit"
         	}
