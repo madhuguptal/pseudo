@@ -1,7 +1,7 @@
 // TODO add clean up of previous builds to save space on Jenkins
 if ( BRANCH_NAME != "develop-cf") {
 
-    node('DotNetAgent') { 
+    node { 
         deleteDir()
         stage('Checkout') {
                 // enables submodule checkout
