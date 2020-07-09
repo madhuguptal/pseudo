@@ -1,10 +1,10 @@
 def createStages(input1) {
     stage_map = [:]
-    input1.each{
+    for (def key in input1.keySet()) {
         stage_map.put(
-            'deploying-' +it.key, 
+            'deploying-' +key, 
             {
-                print it.value
+                print "aa"
             }
         ); 
     }
