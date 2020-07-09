@@ -3,7 +3,7 @@ def createStages(input1) {
     stage_map = [:]
     for ( e in input1 ) {
         stage_map.put(
-            'deploying-' ${e.key}, 
+            'deploying-' +${e.key}, 
             {
                 ${e.value}
             }
