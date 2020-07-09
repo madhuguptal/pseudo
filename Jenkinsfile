@@ -3,7 +3,7 @@ def createStages(input1) {
   stage_map.put(
     'test-1', 
     {
-      sh 'echo ${input1}'
+      print input1
     }
     )
   stage_map.put('test-2', {echo 'test2'})
@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('test') {
       steps{
-        script { parallel(createStages([1,2])) }
+        script { parallel(createStages("s")) }
       }
     }
   }
