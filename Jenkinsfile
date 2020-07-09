@@ -1,4 +1,5 @@
 def createStages(input1) {
+    print input1
     stage_map = [:]
     for(int i in input1) { 
         stage_map.put(
