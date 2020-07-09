@@ -1,6 +1,6 @@
 def createStages(input1) {
     stage_map = [:]
-    for(item in map)
+    for(item in map) {
         stage_map.put(
             'test-' +item.value, 
             {
