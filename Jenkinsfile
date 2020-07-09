@@ -1,11 +1,13 @@
 def createStages(input1) {
-  stage_map = [:]
-  stage_map.put(
-    'test-1', 
-    {
-      print input1
-    }
-    )
+    stage_map = [:]
+    for(int i in input1) { 
+        stage_map.put(
+            'test-1', 
+            {
+                print i
+            }
+        ); 
+    } 
   stage_map.put('test-2', {echo 'test2'})
   return stage_map
 }
