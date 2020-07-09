@@ -5,7 +5,7 @@ def createStages(input1) {
         stage_map.put(
             'packBuild-' +modName, 
             {
-                sh "#packer build -var-file variable.json -var 'Version=halum}' capp-modName.json" + modName
+                sh "#packer build -var-file variable.json -var 'Version=halum}' ${modName}.json"
             }
         ); 
     } 
