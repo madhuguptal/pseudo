@@ -9,7 +9,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "echo 'aaa' && #packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
+                        sh "echo '#packer build -var-file variable.json -var Version=halum} ${val}.json'"
                     }
                 }
             ); 
@@ -40,7 +40,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war"
+                        sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
                     }
 
                 }
