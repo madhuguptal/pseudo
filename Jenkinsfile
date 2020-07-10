@@ -28,7 +28,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                     } else {
                         sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}"
                         sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
-                        sh "which java"
+                        sh "${tool 'java_11'} which java"
                         //sh "gradle --version"
                     }
 
@@ -100,7 +100,7 @@ node {
     stage ('Maven Build') {
         stage_map = [:]     
         need_this_stage = 0
-        if(wantToDeploy["deployoperations"] == 'yes' || wantToDeploy["deploytransaction"] == 'yes'){
+        if(any(wantToDeploy == 'yes'){
             stage_map = createStagesMAVEN(wantToDeploy,stage_map)
             need_this_stage = 1
             
