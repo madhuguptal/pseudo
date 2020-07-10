@@ -25,6 +25,7 @@ node {
             string(name: 'submodule', defaultValue: ''),
             string(name: 'submodule_branch', defaultValue: ''),
             string(name: 'commit_sha', defaultValue: ''),
+            choice(choices: ['uat' , 'lt', 'prod'], description: 'Select Environment', name: 'ENVIRONMENT'),
         ])
     ])
     def mvnHome = [a: 1, b: 2]
