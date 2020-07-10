@@ -114,6 +114,9 @@ node {
     //        }
     //    }
     //}
+    stage ('Maven Build - what if we skip') {
+        sh "echo 'it would work'"
+    }
 }
 
 
