@@ -82,7 +82,8 @@ node {
     //])
     def wantToDeploy = [
 	    'operations' : deployoperations,
-	    'transaction' : deploytransaction
+	    'transaction' : deploytransaction,
+        'deploymentbankmw' : deploymentbankmw
 	]
     //println(userInput); 
 
@@ -99,15 +100,12 @@ node {
     stage ('Maven Build') {
         stage_map = [:]     
         need_this_stage = 0
-        if(deployoperations == 'yes' || deploytransaction == 'yes'){
+        if(wantToDeploy["deployoperations"] == 'yes' || wantToDeploy["deploytransaction"] == 'yes'){
             stage_map = createStagesMAVEN(wantToDeploy,stage_map)
             need_this_stage = 1
             
         }
-        if(deploymentbankmw == 'yes' ){
-            def wantToDeployGR = [
-                'deploymentbankmw' : deploymentbankmw
-            ]
+        if(wantToDeploy["deploymentbankmw"] == 'yes' ){
             stage_map = createStagesGRADLE(wantToDeployGR,stage_map)
             need_this_stage = 1
         }
