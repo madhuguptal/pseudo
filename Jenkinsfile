@@ -24,6 +24,10 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         ){
             sh "${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=/${tool 'java_11'}"
         }
+        tools {
+            gradle 'gradle_6.4.1'
+            jdk 'java_11'
+        }
         wantToDeployDef.each { key, val ->
             stage_map.put(
                 'packBuild-' +key, 
