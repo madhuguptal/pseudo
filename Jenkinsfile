@@ -101,10 +101,10 @@ node {
             
         }
         if(deploymentbankmw == 'yes' ){
-            def wantToDeploy = [
+            def wantToDeployGR = [
                 'deploymentbankmw' : deploymentbankmw
             ]
-            stage_map = createStagesGRADLE(wantToDeploy,stage_map)
+            stage_map = createStagesGRADLE(wantToDeployGR,stage_map)
             need_this_stage = 1
         }
         if(need_this_stage == 1){
