@@ -64,7 +64,6 @@ node {
                     // navigating to the folder configuration in the section "Pipeline Maven Configuration / Override global Maven configuration"
                     // or globally to the entire master navigating to  "Manage Jenkins / Global Tools Configuration"
                  ){
-
                 // Run the maven build
                 sh "mvn clean verify"
 
