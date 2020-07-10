@@ -53,7 +53,7 @@ node {
 
     stage ('Build') {
         script {
-            if (parameters.ENVIRONMENT == 'prod') {
+            if (ENVIRONMENT == 'prod') {
                 git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
                 withMaven(
                     // Maven installation declared in the Jenkins "Global Tool Configuration"
@@ -70,10 +70,10 @@ node {
 
                 } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
             }
-            if (parameters.ENVIRONMENT == 'uat') {
+            if (ENVIRONMENT == 'uat') {
                 sh "echo 'uat'"
             }
-            if (parameters.ENVIRONMENT == 'lt') {
+            if (ENVIRONMENT == 'lt') {
                 sh "echo 'lt'"
             }
         }
