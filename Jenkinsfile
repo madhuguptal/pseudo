@@ -9,7 +9,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "#packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
+                        sh "echo 'aaa' && #packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
                     }
                 }
             ); 
@@ -84,7 +84,9 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Maven Build') {
-        parallel(createStagesMAVEN(wantToDeploy))
+        if(deployoperations == 'yes' || deploytransaction == 'yes'){
+            parallel(createStagesMAVEN(wantToDeploy))
+        }
     }
     //stage ('Build') {
     //    script {
