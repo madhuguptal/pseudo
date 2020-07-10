@@ -43,7 +43,7 @@ node {
         parallel(createStages(wantToDeploy))
     }
     stage('Checkout') {
-        sh "echo 'bb'"
+        sh "echo ${submodule}"
     }
 
     stage('Build') {
