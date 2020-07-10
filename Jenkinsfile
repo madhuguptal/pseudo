@@ -69,7 +69,7 @@ node {
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
     def wantToDeploy = [
-	    'operations' : deploytransaction,
+	    'operations' : deployoperations,
 	    'transaction' : deploytransaction
 	]
     //println(userInput); 
