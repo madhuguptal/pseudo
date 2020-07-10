@@ -52,26 +52,31 @@ node {
     }
 
     stage ('Build') {
-        when {
-            expression {
-                parameters.ENVIRONMENT == "prod"
+        script {
+            if (parameters.ENVIRONMENT == 'prod') {
+                git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
+                withMaven(
+                    // Maven installation declared in the Jenkins "Global Tool Configuration"
+                    maven: 'maven_3.6.3',
+                    jdk: 'java_11'
+                    // Maven settings.xml file defined with the Jenkins Config File Provider Plugin
+                    // We recommend to define Maven settings.xml globally at the folder level using
+                    // navigating to the folder configuration in the section "Pipeline Maven Configuration / Override global Maven configuration"
+                    // or globally to the entire master navigating to  "Manage Jenkins / Global Tools Configuration"
+                 ){
+
+                // Run the maven build
+                sh "mvn clean verify"
+
+                } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
+            }
+            if (parameters.ENVIRONMENT == 'uat') {
+                sh "echo 'uat'"
+            }
+            if (parameters.ENVIRONMENT == 'lt') {
+                sh "echo 'lt'"
             }
         }
-        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-        withMaven(
-            // Maven installation declared in the Jenkins "Global Tool Configuration"
-            maven: 'maven_3.6.3',
-            jdk: 'java_11'
-            // Maven settings.xml file defined with the Jenkins Config File Provider Plugin
-            // We recommend to define Maven settings.xml globally at the folder level using
-            // navigating to the folder configuration in the section "Pipeline Maven Configuration / Override global Maven configuration"
-            // or globally to the entire master navigating to  "Manage Jenkins / Global Tools Configuration"
-         ){
-
-        // Run the maven build
-        sh "mvn clean verify"
-
-        } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
     }
 }
 
