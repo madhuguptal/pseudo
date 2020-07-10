@@ -1,17 +1,16 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     def createStages(wantToDeployDef) {
         stage_map = [:]
-        wantToDeployDef.each { key, val ->
+        wantToDeployDef.each { key,  ->
             stage_map.put(
                 'packBuild-' +key, 
                 {
-                    if(true){
+                    if(val == 'no'){
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        echo 'This stage may be skipped'
+                        sh "#packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
                     }
-                    sh "#packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
                 }
             ); 
         } 
