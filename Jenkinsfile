@@ -67,7 +67,7 @@ node {
             //maven build
             string(defaultValue: "bKash-customerapp-mw", description: 'MW Repo:', name: 'MWREPO'),
             choice(name: 'deployoperations', choices: ['yes' , 'no'], description: 'Do you want create ami for operations?'),
-            choice(name: 'deploytransaction', choices: ['yes' , 'no'], description: 'Do you want create ami for transaction?')
+            choice(name: 'deploytransaction', choices: ['yes' , 'no'], description: 'Do you want create ami for transaction?'),
             //gradle build
             choice(name: 'deploymentbankmw', choices: ['yes' , 'no'], description: 'Do you want create ami for bkash-to-bank-mw?')
         ])
