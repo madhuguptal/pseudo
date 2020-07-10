@@ -25,7 +25,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "ls ${tool 'Gradle_6.1.1'}/"
+                        sh "ls ${tool 'Gradle_6.1.1'}/bin/"
                     }
 
                 }
