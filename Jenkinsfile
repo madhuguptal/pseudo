@@ -52,7 +52,7 @@ node {
 
     stage ('Build') {
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-        withMaven(
+        maven(
             // Maven installation declared in the Jenkins "Global Tool Configuration"
             maven: 'maven_3.6.3',
             // Maven settings.xml file defined with the Jenkins Config File Provider Plugin
