@@ -82,9 +82,10 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Maven Build') {
+        stage_map = [:]
         if(deployoperations == 'yes' || deploytransaction == 'yes'){
-            stage_map = [:]
-            parallel(createStagesMAVEN(wantToDeploy,stage_map))
+            stages_mvn = createStagesMAVEN(wantToDeploy,stage_map)
+            parallel(stages_mvn)
         }
     }
     //stage ('Build') {
