@@ -38,7 +38,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     stage_map.put('test-2', {echo 'test2'})
     return stage_map
     }
-def createStagesMAVEN(wantToDeployDef, stage_map) {
+    def createStagesMAVEN(wantToDeployDef, stage_map) {
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         withMaven(
             maven: 'maven_3.6.3',
@@ -59,7 +59,7 @@ def createStagesMAVEN(wantToDeployDef, stage_map) {
 
                 }
             ); 
-        } 
+        }
     stage_map.put('test-2', {echo 'test2'})
     return stage_map
     }
