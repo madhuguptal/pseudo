@@ -40,7 +40,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        echo 'aw yeah.....'
+                        sh "#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war"
                     }
 
                 }
