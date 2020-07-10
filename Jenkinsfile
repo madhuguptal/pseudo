@@ -3,20 +3,13 @@
 
 node {
     def mvnHome = [a: 1, b: 2]
+    def userInput = input(id: 'userInput', message: 'Merge to?',
+    parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef', 
+        description:'describing choices', name:'nameChoice', choices: "QA\nUAT\nProduction\nDevelop\nMaster"]
+    ])
 
-    stage('User Input?') {
-        steps {
-            script {
-                def userInput = input(id: 'userInput', message: 'ENV?',
-                parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'NULL', 
-                    description:'describing choices', name:'nameChoice', choices: "UAT\nPROD\nSIT"]
-                ])
+    println(userInput); //Use this value to branch to different logic if needed
 
-                println(userInput); 
-            }
-        }
-
-    }
 
 
     stage('Checkout') {
