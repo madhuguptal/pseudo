@@ -7,7 +7,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 {
                     if(true){
                         echo 'skipping stage...'
-                        Utils.markStageSkippedForConditional('mystage')
+                        Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
                         echo 'This stage may be skipped'
                     }
