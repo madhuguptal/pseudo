@@ -1,4 +1,16 @@
-
+    def createStages(wantToDeployDef) {
+        stage_map = [:]
+        wantToDeployDef.each { key, val ->
+            stage_map.put(
+                'packBuild-' +key, 
+                {
+                    sh "#packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
+                }
+            ); 
+        } 
+    stage_map.put('test-2', {echo 'test2'})
+    return stage_map
+    }
 
 
 node {
@@ -14,19 +26,6 @@ node {
 	    'FFFF00' : 'yes'
 	]
     println(userInput); 
-    def createStages(wantToDeployDef) {
-        stage_map = [:]
-        wantToDeployDef.each { key, val ->
-            stage_map.put(
-                'packBuild-' +key, 
-                {
-                    sh "#packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
-                }
-            ); 
-        } 
-    stage_map.put('test-2', {echo 'test2'})
-    return stage_map
-    }
 
     stage('test') {
         parallel(createStages(wantToDeploy))
