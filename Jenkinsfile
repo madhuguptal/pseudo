@@ -85,7 +85,7 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Maven Build') {
-        parallel(createStages(wantToDeploy))
+        parallel(createStagesMAVEN(wantToDeploy))
     }
     //stage ('Build') {
     //    script {
