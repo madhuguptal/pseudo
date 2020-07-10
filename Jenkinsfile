@@ -17,7 +17,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
     def createStagesGRADLE(wantToDeployDef, stage_map) {
-        git url: https://github.com/PerfectoMobileSA/Perfecto_Gradle
+        git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
         withGradle(
             gradle: 'Gradle_6.1.1',
             jdk: 'java_11'
