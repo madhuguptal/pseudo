@@ -59,7 +59,7 @@ node {
             string(name: 'commit_sha', defaultValue: ''),
             choice(choices: ['uat' , 'lt', 'prod'], description: 'Select Environment', name: 'ENVIRONMENT'),
             //maven build
-            string(defaultValue: "bKash-customerapp-mw", description: 'MW Repo:', name: 'MWREPO')
+            string(defaultValue: "bKash-customerapp-mw", description: 'MW Repo:', name: 'MWREPO'),
             choice(name: 'deployoperations', choices: ['yes' , 'no'], description: 'Do you want create ami for operations?'),
             choice(name: 'deploytransaction', choices: ['yes' , 'no'], description: 'Do you want create ami for transaction?')
         ])
