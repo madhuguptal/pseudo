@@ -21,7 +21,10 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 node {
     properties([
         parameters([
-          booleanParam(name: 'DEPLOY_SHA', defaultValue: false),
+            booleanParam(name: 'DEPLOY_SHA', defaultValue: false),
+            string(name: 'submodule', defaultValue: ''),
+            string(name: 'submodule_branch', defaultValue: ''),
+            string(name: 'commit_sha', defaultValue: ''),
         ])
     ])
     def mvnHome = [a: 1, b: 2]
