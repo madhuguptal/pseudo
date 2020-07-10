@@ -21,8 +21,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 node {
     def mvnHome = [a: 1, b: 2]
     def userInput = input(id: 'userInput', message: 'ENV?',
-    parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'NULL', 
-        description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
+    parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     ])
     def wantToDeploy = [
 	    'module1' : 'yes',
