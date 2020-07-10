@@ -22,7 +22,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
             gradle: 'Gradle_6.1.1',
             jdk: 'java_11'
         ){
-            sh "gradle version"
+            sh "gradle --version"
         }
         wantToDeployDef.each { key, val ->
             stage_map.put(
@@ -33,7 +33,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
                         //sh "ls ${tool 'Gradle_6.1.1'}/bin/"
-                        sh "gradle version"
+                        sh "gradle --version"
                     }
 
                 }
