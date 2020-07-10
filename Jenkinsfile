@@ -33,7 +33,7 @@ node {
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
     def wantToDeploy = [
-	    'module1' : 'yes',
+	    'module1' : ${submodule},
 	    'module2' : 'no',
 	    'module3' : 'no',
 	    'module4' : 'yes'
