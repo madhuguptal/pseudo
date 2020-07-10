@@ -35,7 +35,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
 def createStagesMAVEN(wantToDeployDef, stage_map) {
-        git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
+        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         withMaven(
             maven: 'maven_3.6.3',
             jdk: 'java_11'
