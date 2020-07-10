@@ -106,7 +106,7 @@ node {
             
         }
         if(wantToDeploy["deploymentbankmw"] == 'yes' ){
-            stage_map = createStagesGRADLE(wantToDeployGR,stage_map)
+            stage_map = createStagesGRADLE(wantToDeploy,stage_map)
             need_this_stage = 1
         }
         if(need_this_stage == 1){
