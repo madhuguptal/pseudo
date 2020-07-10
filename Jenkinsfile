@@ -1,4 +1,4 @@
-import org.jenkinsci.plugins.pipeline.modeldefinition.Utils.markStageSkippedForConditional as skip
+import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     def createStages(wantToDeployDef) {
         stage_map = [:]
         wantToDeployDef.each { key, val ->
@@ -7,7 +7,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils.markStageSkippedForC
                 {
                     if(val == 'no'){
                         echo 'skipping stage...'
-                        skip('packBuild-' +key)
+                        Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
                         sh "#packer build -var-file variable.json -var 'Version=halum}' ${val}.json"
                     }
@@ -43,6 +43,10 @@ node {
         parallel(createStages(wantToDeploy))
     }
     stage('Checkout') {
+        tools {
+            maven 'maven_3.6.3'
+            jdk 'java_11'
+        }
         sh "echo ${submodule}"
     }
 
