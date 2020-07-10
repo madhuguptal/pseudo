@@ -16,7 +16,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } 
     return stage_map
     }
-    def createStagesMAVEN(wantToDeployDef) {
+    def createStagesMAVEN(wantToDeployDef, stage_map) {
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         withMaven(
             // Maven installation declared in the Jenkins "Global Tool Configuration"
@@ -30,7 +30,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
             // Run the maven build
             sh "mvn clean verify"
         } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
-        stage_map = [:]
         wantToDeployDef.each { key, val ->
             stage_map.put(
                 'packBuild-' +key, 
@@ -84,7 +83,8 @@ node {
     }
     stage ('Maven Build') {
         if(deployoperations == 'yes' || deploytransaction == 'yes'){
-            parallel(createStagesMAVEN(wantToDeploy))
+            stage_map = [:]
+            parallel(createStagesMAVEN(wantToDeploy,stage_map))
         }
     }
     //stage ('Build') {
