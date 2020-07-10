@@ -52,6 +52,7 @@ node {
     }
 
     stage ('Build') {
+        if (parameters.ENVIRONMENT == 'prod')
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         withMaven(
             // Maven installation declared in the Jenkins "Global Tool Configuration"
