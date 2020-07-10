@@ -28,16 +28,16 @@ node {
         ])
     ])
     def mvnHome = [a: 1, b: 2]
-    def userInput = input(id: 'userInput', message: 'ENV?',
-    parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
-    ])
+    //def userInput = input(id: 'userInput', message: 'ENV?',
+    //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
+    //])
     def wantToDeploy = [
 	    'module1' : 'yes',
 	    'module2' : 'no',
 	    'module3' : 'no',
 	    'module4' : 'yes'
 	]
-    println(userInput); 
+    //println(userInput); 
 
     stage('test') {
         parallel(createStages(wantToDeploy))
