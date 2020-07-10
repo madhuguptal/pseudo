@@ -18,16 +18,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     }
     def createStagesGRADLE(wantToDeployDef, stage_map) {
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
-        withGradle(
-            gradle: 'gradle_6.4.1',
-            jdk: 'java_11'
-        ){
-            sh "${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=/${tool 'java_11'}"
-        }
-        tools {
-            gradle 'gradle_6.4.1'
-            jdk 'java_11'
-        }
         wantToDeployDef.each { key, val ->
             stage_map.put(
                 'packBuild-' +key, 
@@ -36,7 +26,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version"
+                        sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}"
                         sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
                         sh "which java"
                         //sh "gradle --version"
