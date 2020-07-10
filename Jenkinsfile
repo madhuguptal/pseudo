@@ -22,8 +22,8 @@ node {
     def wantToDeploy = [
 	    'module1' : 'yes',
 	    'module2' : 'no',
-	    '0000FF' : 'no',
-	    'FFFF00' : 'yes'
+	    'module3' : 'no',
+	    'module4' : 'yes'
 	]
     println(userInput); 
 
