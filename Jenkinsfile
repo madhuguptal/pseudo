@@ -27,8 +27,8 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
                         sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}"
-                        sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
-                        sh "which java"
+                        //sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
+                        //sh "which java"
                         //sh "gradle --version"
                     }
 
