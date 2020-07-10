@@ -17,13 +17,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
     def createStagesMAVEN(wantToDeployDef, stage_map) {
-        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-        withMaven(
-            maven: 'maven_3.6.3',
-            jdk: 'java_11'
-        ){
-            sh "mvn clean verify"
-        } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
         wantToDeployDef.each { key, val ->
             stage_map.put(
                 'packBuild-' +key, 
@@ -32,7 +25,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
+                        sh "${tool 'Gradle 6.1.1'}/bin/gradle --version"
                     }
 
                 }
@@ -41,8 +34,8 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     stage_map.put('test-2', {echo 'test2'})
     return stage_map
     }
-def createStagesMAVEN(wantToDeployDef, stage_map) {
-        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
+def createStagesGRADLE(wantToDeployDef, stage_map) {
+        git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
         withMaven(
             maven: 'maven_3.6.3',
             jdk: 'java_11'
@@ -100,7 +93,7 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Maven Build') {
-        stage_map = [:]
+        stage_map = [:]     
         need_this_stage = 0
         if(deployoperations == 'yes' || deploytransaction == 'yes'){
             stage_map = createStagesMAVEN(wantToDeploy,stage_map)
@@ -108,7 +101,10 @@ node {
             
         }
         if(deploymentbankmw == 'yes' ){
-            stage_map = createStagesMAVEN(wantToDeploy,stage_map)
+            def wantToDeploy = [
+                'deploymentbankmw' : deploymentbankmw
+            ]
+            stage_map = createStagesGRADLE(wantToDeploy,stage_map)
             need_this_stage = 1
         }
         if(need_this_stage == 1){
