@@ -19,6 +19,11 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     }
 
 node {
+    properties([
+        parameters([
+          booleanParam(name: 'DEPLOY_SHA', defaultValue: false),
+        ])
+    ])
     def mvnHome = [a: 1, b: 2]
     def userInput = input(id: 'userInput', message: 'ENV?',
     parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
