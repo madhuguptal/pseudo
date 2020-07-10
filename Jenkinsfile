@@ -2,7 +2,7 @@
 
 
 node {
-    def mvnHome = [tool 'M3]'
+    def mvnHome = [a: 1, b: 2]
 
     stage('Checkout') {
         sh "echo 'bb'"
