@@ -26,6 +26,8 @@ node {
             string(name: 'submodule_branch', defaultValue: ''),
             string(name: 'commit_sha', defaultValue: ''),
             choice(choices: ['uat' , 'lt', 'prod'], description: 'Select Environment', name: 'ENVIRONMENT'),
+            choice(name: 'deployoperations', choices: ['yes' , 'no'], description: 'Do you want create ami for operations?'),
+            choice(name: 'deploytransaction', choices: ['yes' , 'no'], description: 'Do you want create ami for transaction?')
         ])
     ])
     def mvnHome = [a: 1, b: 2]
