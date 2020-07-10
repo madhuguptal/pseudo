@@ -34,7 +34,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                     } else {
                         sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version"
                         sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
-                        sh "whereis java"
+                        sh "whois java"
                         //sh "gradle --version"
                     }
 
