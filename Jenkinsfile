@@ -84,8 +84,8 @@ node {
     stage ('Maven Build') {
         stage_map = [:]
         if(deployoperations == 'yes' || deploytransaction == 'yes'){
-            stages_mvn = createStagesMAVEN(wantToDeploy,stage_map)
-            parallel(stages_mvn)
+            stage_map = createStagesMAVEN(wantToDeploy,stage_map)
+            parallel(stage_map)
         }
     }
     //stage ('Build') {
