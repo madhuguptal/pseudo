@@ -16,7 +16,7 @@ node {
     println(userInput); 
     def createStages(wantToDeployDef) {
         stage_map = [:]
-        wantToDeploy.each { key, val ->
+        wantToDeployDef.each { key, val ->
             stage_map.put(
                 'packBuild-' +key, 
                 {
