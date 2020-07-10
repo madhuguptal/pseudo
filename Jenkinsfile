@@ -22,7 +22,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
             gradle: 'gradle_6.4.1',
             jdk: 'java_11'
         ){
-            sh "gradle --version"
+            sh "${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=/${tool 'java_11'}"
         }
         wantToDeployDef.each { key, val ->
             stage_map.put(
