@@ -14,7 +14,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 }
             ); 
         } 
-    stage_map.put('test-2', {echo 'test2'})
     return stage_map
     }
     def createStagesMAVEN(wantToDeployDef) {
