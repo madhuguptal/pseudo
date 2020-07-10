@@ -28,7 +28,9 @@ node {
     return stage_map
     }
 
-    parallel(createStages(wantToDeploy))
+    stage('test') {
+        parallel(createStages(wantToDeploy))
+    }
     stage('Checkout') {
         sh "echo 'bb'"
     }
