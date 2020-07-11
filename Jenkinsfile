@@ -17,7 +17,7 @@ def createStageAsWanted(stageName, loopKey, loopValue, cmdArray) {
 }
 def RecycleEc2(wantToDeployDef, stage_map) {
     wantToDeployDef.each { key, val ->
-        createStageAsWanted("TerminateEc2", key, val, ["echo '${ENVIRONMENT}-capp-${val}'", echo "'2'"])
+        createStageAsWanted("TerminateEc2", key, val, ["echo '${ENVIRONMENT}-capp-${val}'", "echo '2'"])
     }
 return stage_map
 }
