@@ -16,9 +16,27 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } 
     return stage_map
     }
-    def createStagesGRADLE(wantToDeployDef1, stage_map) {
+    def RecycleEc2(wantToDeployDef) {
+        stage_map = [:]
+        wantToDeployDef.each { key, val ->
+            stage_map.put(
+                'Terminateec2-' +key,
+                {
+                    if(val == 'no'){
+                        echo 'skipping stage...'
+                        Utils.markStageSkippedForConditional('Terminateec2-' +key)
+                    } else {
+                        sh "echo '${ENVIRONMENT}-capp-${val}'"
+                    }
+                }
+            );
+        }
+    return stage_map
+    }
+
+    def createStagesGRADLE(wantToDeployDef, stage_map) {
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
-        wantToDeployDef1.each { key, val ->
+        wantToDeployDef.each { key, val ->
             stage_map.put(
                 'packBuild-' +key,
                 {
@@ -133,6 +151,21 @@ node {
     }
     stage ('Maven Build - what if we skip') {
         sh "echo 'it would work'"
+    }
+    stage('Build') {
+        stage_map = [:]
+        need_this_stage = 0
+        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes' && ENVIRONMENT == 'PROD'){
+            stage_map = RecycleEc2(wantToDeployMVN, stage_map)
+            need_this_stage = 1
+        }
+        if(wantToDeployGRD["deploymentbankmw"] == 'yes' && ENVIRONMENT == 'PROD'){
+            stage_map = RecycleEc2(wantToDeployGRD, stage_map)
+            need_this_stage = 1
+        }
+        if(need_this_stage == 1){
+            parallel(stage_map)
+        }
     }
 }
 
