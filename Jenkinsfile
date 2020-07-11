@@ -1,5 +1,5 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
-    def createStageAsWanted(stageName, loopKey, loopValue) {
+    def createStageAsWanted(stageName, loopKey, loopValue, cmd) {
          stage_map.put(
                 stageName + loopKey,
                 {
@@ -7,7 +7,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('Terminateec2-' +loopKey)
                     } else {
-                        sh "echo '${ENVIRONMENT}-capp-${loopValue}'"
+                        sh "${cmd}"
                     }
                 }
             );
@@ -17,7 +17,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 
     def RecycleEc2(wantToDeployDef, stage_map) {
         wantToDeployDef.each { key, val ->
-           createStageAsWanted("TerminateEc2", key, val)
+           createStageAsWanted("TerminateEc2", key, val, echo '${ENVIRONMENT}-capp-${val}')
         }
     return stage_map
     }
