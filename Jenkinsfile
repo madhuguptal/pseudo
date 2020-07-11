@@ -99,17 +99,17 @@ node {
     def wantToDeployMVN = [
 	    'deployoperations' : deployoperations,
 	    'deploytransaction' : deploytransaction,
-	    'm1': 'yes',
+	    'm1': 'no',
 	    'm2': 'no',
-	    'm3': 'yes',
-	    'm4': 'yes',
+	    'm3': 'no',
+	    'm4': 'no',
 	    'm5': 'no',
 	    'm6': 'no',
 	    'm7': 'no',
-	    'm8': 'yes',
-	    'm9': 'yes',
+	    'm8': 'no',
+	    'm9': 'no',
 	    'm10': 'no',
-	    'm11': 'yes',
+	    'm11': 'no',
 	    'm12': 'no',
 	    'm13': 'no'
 	]
