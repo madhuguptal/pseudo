@@ -100,7 +100,7 @@ node {
                     stage_map = createStagesMAVEN(wantToDeploy,stage_map)
                 }
                 stage_map
-            };
+            },
             "GRADLE":{
                 if(wantToDeploy["deploymentbankmw"] == 'yes'){
                     stage_map = createStagesGRADLE(wantToDeploy,stage_map)
