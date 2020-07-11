@@ -55,7 +55,6 @@ def createStagesGRADLE(wantToDeployDef, stage_map) {
                 }
             );
         }
-    stage_map.put('test-2grd', {echo 'test2'})
     return stage_map
 }
 /*
@@ -95,7 +94,6 @@ def createStagesMAVEN(wantToDeployDef, stage_map) {
                 }
             );
         }
-    stage_map.put('test-2mvn', {echo 'test2'})
     return stage_map
 }
 node {
@@ -137,18 +135,15 @@ node {
                     stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
                     need_this_stage = 1
                 }
-                if(need_this_stage == 1){
-                    parallel(stage_map)
-                }
             },
             gradle: {
                 if(wantToDeployGRD.containsValue('yes')){
                     stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
                     need_this_stage = 1
                 }
-                if(need_this_stage == 1){
+            }
+            if(need_this_stage == 1){
                     parallel(stage_map)
-                }
             }
         )
     }
