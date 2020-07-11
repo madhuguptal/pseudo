@@ -22,19 +22,8 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
     def createStages(wantToDeployDef) {
-        stage_map = [:]
         wantToDeployDef.each { key, val ->
-            stage_map.put(
-                'packBuild-' +key, 
-                {
-                    if(val == 'no'){
-                        echo 'skipping stage...'
-                        Utils.markStageSkippedForConditional('packBuild-' +key)
-                    } else {
-                        sh "echo '#packer build -var-file variable.json -var Version=halum} ${val}.json'"
-                    }
-                }
-            ); 
+            createStageAsWanted("Packer", key, val, "#packer build -var-file var.json -var Version '${ENVIRONMENT}-capp-${val}'")
         } 
     return stage_map
     }
@@ -105,8 +94,8 @@ node {
 	]
     def unionWantToDeply = wantToDeployMVN + wantToDeployGRD
     stage('test') {
+        stage_map = [:]
         parallel(createStages(unionWantToDeply))
-        sh "echo 'test stg'"
     }
 
     stage('Build') {
