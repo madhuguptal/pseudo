@@ -57,7 +57,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 }
             );
         }
-    stage_map.put('test-2grd', {echo 'test2'})
     return stage_map
     }
     def createStagesMAVEN(wantToDeployDef, stage_map) {
@@ -82,7 +81,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 }
             );
         }
-    stage_map.put('test-2mvn', {echo 'test2'})
     return stage_map
     }
 node {
