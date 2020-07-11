@@ -17,35 +17,20 @@ def createStageAsWanted(stageName, loopKey, loopValue, cmdArray) {
 }
 def RecycleEc2(wantToDeployDef, stage_map) {
     wantToDeployDef.each { key, val ->
-        createStageAsWanted("TerminateEc2", key, val, ["echo '${ENVIRONMENT}-capp-${val}'", "echo '2'"])
+        createStageAsWanted("TerminateEc2", key, val, ["echo '${ENVIRONMENT}-capp-${val}'"])
     }
 return stage_map
 }
 def createStages(wantToDeployDef) {
     wantToDeployDef.each { key, val ->
-        createStageAsWanted("Packer", key, val, ["echo '${ENVIRONMENT}-capp-${val}'", "echo '2'"])
+        createStageAsWanted("Packer", key, val, ["echo '${ENVIRONMENT}-capp-${val}'"])
     } 
 return stage_map
 }
 def createStagesGRADLE(wantToDeployDef, stage_map) {
     git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
     wantToDeployDef.each { key, val ->
-        stage_map.put(
-            'packBuild-' +key,
-                {
-                    if(val == 'no') {
-                        echo 'skipping stage...'
-                        Utils.markStageSkippedForConditional('packBuild-' +key)
-                    } else {
-                        sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}"
-                        //sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
-                        //sh "which java"
-                        //sh "gradle --version"
-                    }
-
-                }
-            );
-        }
+        createStageAsWanted("GradleBuild", key, val, ["ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}", "gradle --version"])
     return stage_map
     }
 def createStagesMAVEN(wantToDeployDef, stage_map) {
