@@ -107,7 +107,7 @@ node {
                 }
                 stage_map
             }
-        }
+        )
     }
 }
 
