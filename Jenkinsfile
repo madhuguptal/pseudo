@@ -1,37 +1,37 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
-    def createStageAsWanted(stageName, loopKey, loopValue, cmd) {
-         stage_map.put(
-                stageName + loopKey,
-                {
-                    if(loopValue == 'no'){
-                        Utils.markStageSkippedForConditional(stageName + loopKey)  
-                        echo 'skipping stage...'                        
-                    } else {
+def createStageAsWanted(stageName, loopKey, loopValue, cmdArray) {
+        stage_map.put(
+            stageName + loopKey,
+            {
+                if(loopValue == 'no'){
+                    Utils.markStageSkippedForConditional(stageName + loopKey)  
+                    echo 'skipping stage...'                        
+                } else {
+                    for(cmd in cmdArray){
                         sh "${cmd}"
-                    }
+                    } 
                 }
-            );
-        return stage_map
-    }
-
-
-    def RecycleEc2(wantToDeployDef, stage_map) {
-        wantToDeployDef.each { key, val ->
-           createStageAsWanted("TerminateEc2", key, val, "echo '${ENVIRONMENT}-capp-${val}'")
-        }
+            }
+        );
     return stage_map
+}
+def RecycleEc2(wantToDeployDef, stage_map) {
+    wantToDeployDef.each { key, val ->
+        createStageAsWanted("TerminateEc2", key, val, ["echo '${ENVIRONMENT}-capp-${val}'", echo "'2'"])
     }
-    def createStages(wantToDeployDef) {
-        wantToDeployDef.each { key, val ->
-            createStageAsWanted("Packer", key, val, "#packer build -var-file var.json -var Version '${ENVIRONMENT}-capp-${val}'")
-        } 
-    return stage_map
-    }
-    def createStagesGRADLE(wantToDeployDef, stage_map) {
-        git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
-        wantToDeployDef.each { key, val ->
-            stage_map.put(
-                'packBuild-' +key,
+return stage_map
+}
+def createStages(wantToDeployDef) {
+    wantToDeployDef.each { key, val ->
+        createStageAsWanted("Packer", key, val, ["echo '${ENVIRONMENT}-capp-${val}'", "echo '2'"])
+    } 
+return stage_map
+}
+def createStagesGRADLE(wantToDeployDef, stage_map) {
+    git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
+    wantToDeployDef.each { key, val ->
+        stage_map.put(
+            'packBuild-' +key,
                 {
                     if(val == 'no') {
                         echo 'skipping stage...'
@@ -48,30 +48,30 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         }
     return stage_map
     }
-    def createStagesMAVEN(wantToDeployDef, stage_map) {
-        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-        withMaven(
-            maven: 'maven_3.6.3',
-            jdk: 'java_11'
-        ){
-            sh "mvn clean verify"
-        } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
-        wantToDeployDef.each { key, val ->
-            stage_map.put(
-                'packBuild-' +key,
-                {
-                    if(val == 'no') {
-                        echo 'skipping stage...'
-                        Utils.markStageSkippedForConditional('packBuild-' +key)
-                    } else {
-                        sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
-                    }
-
+def createStagesMAVEN(wantToDeployDef, stage_map) {
+    git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
+    withMaven(
+        maven: 'maven_3.6.3',
+        jdk: 'java_11'
+    ){
+        sh "mvn clean verify"
+    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
+    wantToDeployDef.each { key, val ->
+        stage_map.put(
+            'packBuild-' +key,
+            {
+                if(val == 'no') {
+                    echo 'skipping stage...'
+                    Utils.markStageSkippedForConditional('packBuild-' +key)
+                } else {
+                    sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
                 }
-            );
-        }
-    return stage_map
+
+            }
+        );
     }
+return stage_map
+}
 node {
     properties([
         parameters([
