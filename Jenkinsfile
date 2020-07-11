@@ -1,7 +1,7 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 def createStageAsWanted(stageName, loopKey, loopValue, cmdArray) {
         stage_map.put(
-            stageName + loopKey,
+            stageName + "-" + loopKey,
             {
                 if(loopValue == 'no'){
                     Utils.markStageSkippedForConditional(stageName + loopKey)  
