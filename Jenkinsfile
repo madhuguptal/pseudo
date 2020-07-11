@@ -76,16 +76,16 @@ node {
     stage('Build') {
         sh "echo 'aaa'"
     }
-    stage ('Code Build') {
-        parallel(
-            maven: {
-                stage_map = [:]
-                need_this_stage = 0
-                if(wantToDeployMVN.containsValue('yes')){
-                    stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
-                    need_this_stage = 1
-                }
-                if(need_this_stage == 1){
+    //stage ('Code Build') {
+    //    parallel(
+    //        maven: {
+    //            stage_map = [:]
+    ///            need_this_stage = 0
+    //            if(wantToDeployMVN.containsValue('yes')){
+    //                stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
+    //                need_this_stage = 1
+    //            }
+    /*            if(need_this_stage == 1){
                     parallel(stage_map)
                 }
             },
@@ -102,24 +102,25 @@ node {
             }
         )
     }
+    */
     stage ('Maven Build - what if we skip') {
         sh "echo 'it would work'" 
     }
-    //stage('ReCycle') {
-    //    stage_map = [:]
-    //    need_this_stage = 0
-    //    if(wantToDeployMVN.containsValue('yes') && ENVIRONMENT == 'PROD'){
-     //       stage_map = RecycleEc2(wantToDeployMVN, stage_map)
-    //        need_this_stage = 1
-    //    }
-    //    if(wantToDeployGRD["deploymentbankmw"] == 'yes' && ENVIRONMENT == 'PROD'){
-    //        stage_map = RecycleEc2(wantToDeployGRD, stage_map)
-    //        need_this_stage = 1
-    //    }
-    //    if(need_this_stage == 1){
-    //        parallel(stage_map)
-    //    }
-    //}
+    stage('ReCycle') {
+        stage_map = [:]
+        need_this_stage = 0
+        if(wantToDeployMVN.containsValue('yes') && ENVIRONMENT == 'PROD'){
+            stage_map = RecycleEc2(wantToDeployMVN, stage_map)
+            need_this_stage = 1
+        }
+        if(wantToDeployGRD["deploymentbankmw"] == 'yes' && ENVIRONMENT == 'PROD'){
+            stage_map = RecycleEc2(wantToDeployGRD, stage_map)
+            need_this_stage = 1
+        }
+        if(need_this_stage == 1){
+            parallel(stage_map)
+        }
+    }
 }
 
 
