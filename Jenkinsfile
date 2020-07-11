@@ -155,7 +155,7 @@ node {
     stage('Build') {
         stage_map = [:]
         need_this_stage = 0
-        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes' && ENVIRONMENT == 'PROD'){
+        if((wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes') && ENVIRONMENT == 'PROD'){
             stage_map = RecycleEc2(wantToDeployMVN, stage_map)
             need_this_stage = 1
         }
