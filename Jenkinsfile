@@ -163,7 +163,7 @@ node {
     stage ('Maven Build - what if we skip') {
         sh "echo 'it would work'"
     }
-    stage('Build') {
+    stage('ReCycle') {
         stage_map = [:]
         need_this_stage = 0
         if(wantToDeployMVN["deployoperations"] == 'yes' && ENVIRONMENT == 'PROD'){
