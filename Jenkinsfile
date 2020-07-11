@@ -4,7 +4,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 stageName + loopKey,
                 {
                     if(loopValue == 'no'){
-                        Utils.markStageSkippedForConditional('Terminateec2-' +loopKey)
+                        Utils.markStageSkippedForConditional(stageName + loopKey)  
                         echo 'skipping stage...'                        
                     } else {
                         sh "${cmd}"
