@@ -17,7 +17,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
     def createStagesGRADLE(wantToDeployDef, stage_map) {
-        stage_map = [:]
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
         wantToDeployDef.each { key, val ->
             stage_map.put(
@@ -40,7 +39,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
     def createStagesMAVEN(wantToDeployDef, stage_map) {
-        stage_map = [:]
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         withMaven(
             maven: 'maven_3.6.3',
@@ -94,18 +92,17 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Maven Build') {
+        stage_map = [:]
         parallel(
             "MAVEN":{
                 if(wantToDeploy["deployoperations"] == 'yes' || wantToDeploy["deploytransaction"] == 'yes'){
                     stage_map = createStagesMAVEN(wantToDeploy,stage_map)
                 }
-                stage_map
             },
             "GRADLE":{
                 if(wantToDeploy["deploymentbankmw"] == 'yes'){
                     stage_map = createStagesGRADLE(wantToDeploy,stage_map)
                 }
-                stage_map
             }
         )
         parallel(stage_map)
