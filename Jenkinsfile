@@ -86,7 +86,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 node {
     properties([
         parameters([
-            string(name: 'submodule', defaultValue: ''),
             choice(choices: ['UAT' , 'LT', 'PROD'], description: 'Select Environment', name: 'ENVIRONMENT'),
             //maven build
             string(defaultValue: "bKash-customerapp-mw", description: 'MW Repo:', name: 'MWREPO'),
@@ -104,13 +103,10 @@ node {
         'deploymentbankmw' : deploymentbankmw,
         'gwMOD1': 'no'
 	]
-
+    def unionWantToDeply = wantToDeployMVN + wantToDeployGRD
     stage('test') {
-        parallel(createStages(wantToDeployMVN))
+        parallel(createStages(unionWantToDeply))
         sh "echo 'test stg'"
-    }
-    stage('Checkout') {
-        sh "echo ${submodule}"
     }
 
     stage('Build') {
