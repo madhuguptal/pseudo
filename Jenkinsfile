@@ -30,7 +30,7 @@ def createStages(wantToDeployDef) {
 def createStagesGRADLE(wantToDeployDef, stage_map) {
     git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
     wantToDeployDef.each { key, val ->
-        createStageAsWanted("GradleBuild", key, val, ["ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}", "gradle --version"])
+        createStageAsWanted("GradleBuild", key, val, ["ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}", "#gradle --version"])
     }
     return stage_map
 }
