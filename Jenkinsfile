@@ -17,7 +17,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 
     def RecycleEc2(wantToDeployDef, stage_map) {
         wantToDeployDef.each { key, val ->
-           createStageAsWanted("TerminateEc2", key, val, echo '${ENVIRONMENT}-capp-${val}')
+           createStageAsWanted("TerminateEc2", key, val, "echo '${ENVIRONMENT}-capp-${val}'")
         }
     return stage_map
     }
