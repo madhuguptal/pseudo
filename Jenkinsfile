@@ -36,25 +36,11 @@ def createStagesGRADLE(wantToDeployDef, stage_map) {
 }
 def createStagesMAVEN(wantToDeployDef, stage_map) {
     git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-    withMaven(
-        maven: 'maven_3.6.3',
-        jdk: 'java_11'
-    ){
+    withMaven( maven: 'maven_3.6.3', jdk: 'java_11' ) {
         sh "mvn clean verify"
-    } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
+    } 
     wantToDeployDef.each { key, val ->
-        stage_map.put(
-            'packBuild-' +key,
-            {
-                if(val == 'no') {
-                    echo 'skipping stage...'
-                    Utils.markStageSkippedForConditional('packBuild-' +key)
-                } else {
-                    sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
-                }
-
-            }
-        );
+        createStageAsWanted("MvnBuild", key, val, ["echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"])
     }
 return stage_map
 }
