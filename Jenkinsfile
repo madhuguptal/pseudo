@@ -112,7 +112,8 @@ node {
     ])
     def wantToDeployMVN = [
 	    'deployoperations' : deployoperations,
-	    'deploytransaction' : deploytransaction
+	    'deploytransaction' : deploytransaction,
+        'mvnMOD1': 'yes'
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
@@ -128,9 +129,10 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Code Build') {
+        stage_map = [:]
         parallel(
             maven: {
-                stage_map = [:]
+                
                 need_this_stage = 0
                 if(wantToDeployMVN.containsValue('yes')){
                     stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
@@ -141,7 +143,6 @@ node {
                 }
             },
             gradle: {
-                stage_map = [:]
                 need_this_stage = 0
                 if(wantToDeployGRD.containsValue('yes')){
                     stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
