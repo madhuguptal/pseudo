@@ -17,7 +17,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     return stage_map
     }
     def RecycleEc2(wantToDeployDef, stage_map) {
-        stage_map = [:]
         wantToDeployDef.each { key, val ->
             stage_map.put(
                 'Terminateec2-' +key,
