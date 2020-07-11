@@ -80,8 +80,8 @@ node {
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
     def wantToDeployMVN = [
-	    'operations' : deployoperations,
-	    'transaction' : deploytransaction,
+	    'deployoperations' : deployoperations,
+	    'deploytransaction' : deploytransaction,
 	    'm1': 'yes',
 	    'm2': 'no',
 	    'm3': 'yes',
