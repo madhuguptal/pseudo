@@ -116,7 +116,7 @@ node {
     stage('Build') {
         sh "echo 'aaa'"
     }
-    stage ('Maven Build') {
+    stage ('Code Build') {
         stage_map = [:]
         need_this_stage = 0
         if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
