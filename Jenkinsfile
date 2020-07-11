@@ -79,7 +79,7 @@ def createStagesMAVEN(wantToDeployDef, stage_map) {
             maven: 'maven_3.6.3',
             jdk: 'java_11'
         ){
-            sh "mvn clean verify"
+            sh "#mvn clean verify"
         } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
         wantToDeployDef.each { key, val ->
             stage_map.put(
