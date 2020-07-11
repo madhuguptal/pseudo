@@ -27,6 +27,7 @@ def createStages(wantToDeployDef) {
     } 
     return stage_map
 }
+/*
 def createStagesGRADLE(wantToDeployDef, stage_map) {
     git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
     wantToDeployDef.each { key, val ->
@@ -34,6 +35,30 @@ def createStagesGRADLE(wantToDeployDef, stage_map) {
     }
     return stage_map
 }
+*/
+def createStagesGRADLE(wantToDeployDef, stage_map) {
+        git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
+        wantToDeployDef.each { key, val ->
+            stage_map.put(
+                'packBuild-' +key,
+                {
+                    if(val == 'no') {
+                        echo 'skipping stage...'
+                        Utils.markStageSkippedForConditional('packBuild-' +key)
+                    } else {
+                        sh "ls ${tool 'gradle_6.4.1'}/bin/gradle --version -Dorg.gradle.java.home=${tool 'java_11'}"
+                        //sh "${tool 'gradle_6.4.1'}/bin/gradle --version"
+                        //sh "which java"
+                        //sh "gradle --version"
+                    }
+
+                }
+            );
+        }
+    stage_map.put('test-2grd', {echo 'test2'})
+    return stage_map
+}
+/*
 def createStagesMAVEN(wantToDeployDef, stage_map) {
     git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
     withMaven( 
@@ -46,6 +71,32 @@ def createStagesMAVEN(wantToDeployDef, stage_map) {
         createStageAsWanted("MvnBuild", key, val, ["echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"])
     }
 return stage_map
+}
+*/
+def createStagesMAVEN(wantToDeployDef, stage_map) {
+        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
+        withMaven(
+            maven: 'maven_3.6.3',
+            jdk: 'java_11'
+        ){
+            sh "mvn clean verify"
+        } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
+        wantToDeployDef.each { key, val ->
+            stage_map.put(
+                'packBuild-' +key,
+                {
+                    if(val == 'no') {
+                        echo 'skipping stage...'
+                        Utils.markStageSkippedForConditional('packBuild-' +key)
+                    } else {
+                        sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
+                    }
+
+                }
+            );
+        }
+    stage_map.put('test-2mvn', {echo 'test2'})
+    return stage_map
 }
 node {
     properties([
@@ -76,16 +127,16 @@ node {
     stage('Build') {
         sh "echo 'aaa'"
     }
-    //stage ('Code Build') {
-    //    parallel(
-    //        maven: {
-    //            stage_map = [:]
-    ///            need_this_stage = 0
-    //            if(wantToDeployMVN.containsValue('yes')){
-    //                stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
-    //                need_this_stage = 1
-    //            }
-    /*            if(need_this_stage == 1){
+    stage ('Code Build') {
+        parallel(
+            maven: {
+                stage_map = [:]
+                need_this_stage = 0
+                if(wantToDeployMVN.containsValue('yes')){
+                    stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
+                    need_this_stage = 1
+                }
+                if(need_this_stage == 1){
                     parallel(stage_map)
                 }
             },
@@ -102,7 +153,6 @@ node {
             }
         )
     }
-    */
     stage ('Maven Build - what if we skip') {
         sh "echo 'it would work'" 
     }
