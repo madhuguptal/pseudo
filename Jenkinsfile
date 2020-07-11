@@ -106,25 +106,12 @@ node {
 	    'deploytransaction' : deploytransaction,
 	    'm1': 'yes',
 	    'm2': 'no',
-	    'm3': 'yes',
-	    'm4': 'yes',
-	    'm5': 'no',
-	    'm6': 'no',
-	    'm7': 'no',
-	    'm8': 'yes',
-	    'm9': 'yes',
-	    'm10': 'no',
-	    'm11': 'yes',
-	    'm12': 'no',
-	    'm13': 'no'
+	    'm3': 'yes'
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
         'r23': 'no',
-        'r134': 'yes',
-        'r24': 'no',
-        'r244': 'no',
-        'r13': 'yes'
+        'r134': 'yes'
 	]
 
     stage('test') {
