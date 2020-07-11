@@ -130,10 +130,9 @@ node {
     }
     stage ('Code Build') {
         stage_map = [:]
+        need_this_stage = 0
         parallel(
             maven: {
-                
-                need_this_stage = 0
                 if(wantToDeployMVN.containsValue('yes')){
                     stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
                     need_this_stage = 1
@@ -143,7 +142,6 @@ node {
                 }
             },
             gradle: {
-                need_this_stage = 0
                 if(wantToDeployGRD.containsValue('yes')){
                     stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
                     need_this_stage = 1
