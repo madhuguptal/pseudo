@@ -96,9 +96,6 @@ node {
             choice(name: 'deploymentbankmw', choices: ['yes' , 'no'], description: 'Do you want create ami for bkash-to-bank-mw?')
         ])
     ])
-    //def userInput = input(id: 'userInput', message: 'ENV?',
-    //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
-    //])
     def wantToDeployMVN = [
 	    'deployoperations' : deployoperations,
 	    'deploytransaction' : deploytransaction
@@ -109,7 +106,7 @@ node {
 	]
 
     stage('test') {
-        //parallel(createStages(wantToDeployMVN))
+        parallel(createStages(wantToDeployMVN))
         sh "echo 'test stg'"
     }
     stage('Checkout') {
