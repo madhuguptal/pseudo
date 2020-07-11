@@ -4,7 +4,7 @@ def createStageAsWanted(stageName, loopKey, loopValue, cmdArray) {
             stageName + "-" + loopKey,
             {
                 if(loopValue == 'no'){
-                    Utils.markStageSkippedForConditional(stageName + loopKey)  
+                    Utils.markStageSkippedForConditional(stageName + "-" + loopKey)  
                     echo 'skipping stage...'                        
                 } else {
                     for(cmd in cmdArray){
