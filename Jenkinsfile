@@ -80,15 +80,37 @@ node {
     //def userInput = input(id: 'userInput', message: 'ENV?',
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
-    def wantToDeploy = [
+    def wantToDeployMVN = [
 	    'operations' : deployoperations,
 	    'transaction' : deploytransaction,
-        'deploymentbankmw' : deploymentbankmw
+        'm1': 'yes',
+        'm11': 'yes',
+        'm22': 'no',
+        'm12': 'yes',
+        'm23': 'no',
+        'm13': 'yes',
+        'm24': 'no',
+        'm24': 'no',
+        'm13': 'yes',
+        'm113': 'yes',
+        'm223': 'no',
+        'm123': 'yes',
+        'm233': 'no',
+        'm133': 'yes',
+        'm243': 'no',
+        'm243': 'no'
 	]
-    //println(userInput); 
+    def wantToDeployGRD = [
+        'deploymentbankmw' : deploymentbankmw,
+        'r23': 'no',
+        'r13': 'yes',
+        'r24': 'no',
+        'r24': 'no',
+        'r13': 'yes'
+	]
 
     stage('test') {
-        parallel(createStages(wantToDeploy))
+        parallel(createStages(wantToDeployMVN))
     }
     stage('Checkout') {
         sh "echo ${submodule}"
@@ -100,12 +122,12 @@ node {
     stage ('Maven Build') {
         stage_map = [:]     
         need_this_stage = 0
-        if(wantToDeploy["deployoperations"] == 'yes' || wantToDeploy["deploytransaction"] == 'yes'){
-            stage_map = createStagesMAVEN(wantToDeploy,stage_map)
+        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
+            stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
             need_this_stage = 1
             
         }
-        if(wantToDeploy["deploymentbankmw"] == 'yes' ){
+        if(wantToDeployGRD["deploymentbankmw"] == 'yes' ){
             stage_map = createStagesGRADLE(wantToDeploy,stage_map)
             need_this_stage = 1
         }
