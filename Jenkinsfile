@@ -85,7 +85,7 @@ node {
     properties([
         parameters([
             string(name: 'submodule', defaultValue: ''),
-            choice(choices: ['uat' , 'lt', 'prod'], description: 'Select Environment', name: 'ENVIRONMENT'),
+            choice(choices: ['UAT' , 'LT', 'PROD'], description: 'Select Environment', name: 'ENVIRONMENT'),
             //maven build
             string(defaultValue: "bKash-customerapp-mw", description: 'MW Repo:', name: 'MWREPO'),
             choice(name: 'deployoperations', choices: ['yes' , 'no'], description: 'Do you want create ami for operations?'),
