@@ -106,11 +106,10 @@ node {
     stage ('Maven Build') {
         stage_map = [:]     
         need_this_stage = 0
-        //if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
-        //    stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
-        //    need_this_stage = 1
-        //    
-        //}
+        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
+            stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
+            need_this_stage = 1
+        }
         if(wantToDeployGRD["deploymentbankmw"] == 'yes' ){
             stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
             need_this_stage = 1
