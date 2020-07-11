@@ -108,6 +108,7 @@ node {
                 stage_map
             }
         )
+        parallel(stage_map)
     }
 }
 
