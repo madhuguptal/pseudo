@@ -1,4 +1,26 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
+    def createStageAsWanted(stageName, loopKey, loopValue) {
+         stage_map.put(
+                'Terminateec2-' +key,
+                {
+                    if(val == 'no'){
+                        echo 'skipping stage...'
+                        Utils.markStageSkippedForConditional('Terminateec2-' +key)
+                    } else {
+                        sh "echo '${ENVIRONMENT}-capp-${val}'"
+                    }
+                }
+            );
+        return stage_map
+    }
+
+
+    def RecycleEc2(wantToDeployDef, stage_map) {
+        wantToDeployDef.each { key, val ->
+           createStageAsWanted("TerminateEc2"+key, key, val)
+        }
+    return stage_map
+    }
     def createStages(wantToDeployDef) {
         stage_map = [:]
         wantToDeployDef.each { key, val ->
@@ -16,23 +38,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } 
     return stage_map
     }
-    def RecycleEc2(wantToDeployDef, stage_map) {
-        wantToDeployDef.each { key, val ->
-            stage_map.put(
-                'Terminateec2-' +key,
-                {
-                    if(val == 'no'){
-                        echo 'skipping stage...'
-                        Utils.markStageSkippedForConditional('Terminateec2-' +key)
-                    } else {
-                        sh "echo '${ENVIRONMENT}-capp-${val}'"
-                    }
-                }
-            );
-        }
-    return stage_map
-    }
-
     def createStagesGRADLE(wantToDeployDef, stage_map) {
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
         wantToDeployDef.each { key, val ->
@@ -99,17 +104,17 @@ node {
     def wantToDeployMVN = [
 	    'deployoperations' : deployoperations,
 	    'deploytransaction' : deploytransaction,
-	    'm1': 'no',
+	    'm1': 'yes',
 	    'm2': 'no',
-	    'm3': 'no',
-	    'm4': 'no',
+	    'm3': 'yes',
+	    'm4': 'yes',
 	    'm5': 'no',
 	    'm6': 'no',
 	    'm7': 'no',
-	    'm8': 'no',
-	    'm9': 'no',
+	    'm8': 'yes',
+	    'm9': 'yes',
 	    'm10': 'no',
-	    'm11': 'no',
+	    'm11': 'yes',
 	    'm12': 'no',
 	    'm13': 'no'
 	]
@@ -160,7 +165,7 @@ node {
         )
     }
     stage ('Maven Build - what if we skip') {
-        sh "echo 'it would work'"
+        sh "echo 'it would work'" 
     }
     stage('ReCycle') {
         stage_map = [:]
