@@ -16,11 +16,11 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } 
     return stage_map
     }
-    def createStagesGRADLE(wantToDeployDef1,  stage_map  ) {
+    def createStagesGRADLE(wantToDeployDef1, stage_map) {
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
         wantToDeployDef1.each { key, val ->
             stage_map.put(
-                'packBuild-' +key, 
+                'packBuild-' +key,
                 {
                     if(val == 'no') {
                         echo 'skipping stage...'
@@ -33,8 +33,8 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                     }
 
                 }
-            ); 
-        } 
+            );
+        }
     stage_map.put('test-2grd', {echo 'test2'})
     return stage_map
     }
@@ -48,7 +48,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
         wantToDeployDef.each { key, val ->
             stage_map.put(
-                'packBuild-' +key, 
+                'packBuild-' +key,
                 {
                     if(val == 'no') {
                         echo 'skipping stage...'
@@ -58,7 +58,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                     }
 
                 }
-            ); 
+            );
         }
     stage_map.put('test-2mvn', {echo 'test2'})
     return stage_map
@@ -81,7 +81,20 @@ node {
     //])
     def wantToDeployMVN = [
 	    'operations' : deployoperations,
-	    'transaction' : deploytransaction
+	    'transaction' : deploytransaction,
+	    'm1': 'yes',
+	    'm2': 'no',
+	    'm3': 'yes',
+	    'm4': 'yes',
+	    'm5': 'no',
+	    'm6': 'no',
+	    'm7': 'no',
+	    'm8': 'yes',
+	    'm9': 'yes',
+	    'm10': 'no',
+	    'm11': 'yes',
+	    'm12': 'no',
+	    'm13': 'no'
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
@@ -104,9 +117,9 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Maven Build') {
-        stage_map = [:]     
+        stage_map = [:]
         need_this_stage = 0
-        if(wantToDeployMVN["operations"] == 'yes' || wantToDeployMVN["transaction"] == 'yes'){
+        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
             stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
             need_this_stage = 1
         }
