@@ -16,7 +16,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } 
     return stage_map
     }
-    def createStagesGRADLE(wantToDeployDef1, stage_map) {
+    def createStagesGRADLE(wantToDeployDef1,  stage_map  ) {
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
         wantToDeployDef1.each { key, val ->
             stage_map.put(
@@ -106,7 +106,7 @@ node {
     stage ('Maven Build') {
         stage_map = [:]     
         need_this_stage = 0
-        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
+        if(wantToDeployMVN["operations"] == 'yes' || wantToDeployMVN["transaction"] == 'yes'){
             stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
             need_this_stage = 1
         }
