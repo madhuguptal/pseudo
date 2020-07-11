@@ -36,7 +36,10 @@ def createStagesGRADLE(wantToDeployDef, stage_map) {
 }
 def createStagesMAVEN(wantToDeployDef, stage_map) {
     git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-    withMaven( maven: 'maven_3.6.3', jdk: 'java_11' ) {
+    withMaven( 
+        maven: 'maven_3.6.3', 
+        jdk: 'java_11' 
+    ) {
         sh "#mvn clean verify"
     } 
     wantToDeployDef.each { key, val ->
@@ -70,6 +73,9 @@ node {
         stage_map = [:]
         parallel(createStages(unionWantToDeply))
     }
+    stage('Build') {
+        sh "echo 'aaa'"
+    }
     stage ('Code Build') {
         parallel(
             maven: {
@@ -95,6 +101,9 @@ node {
                 }
             }
         )
+    }
+    stage ('Maven Build - what if we skip') {
+        sh "echo 'it would work'" 
     }
     stage('ReCycle') {
         stage_map = [:]
