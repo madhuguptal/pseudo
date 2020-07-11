@@ -16,9 +16,9 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
         } 
     return stage_map
     }
-    def createStagesGRADLE(wantToDeployDef, stage_map) {
+    def createStagesGRADLE(wantToDeployDef1, stage_map) {
         git url: 'https://github.com/PerfectoMobileSA/Perfecto_Gradle'
-        wantToDeployDef.each { key, val ->
+        wantToDeployDef1.each { key, val ->
             stage_map.put(
                 'packBuild-' +key, 
                 {
