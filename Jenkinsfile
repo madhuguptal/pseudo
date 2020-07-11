@@ -65,13 +65,10 @@ node {
         'gwMOD1': 'no'
 	]
     def unionWantToDeply = wantToDeployMVN + wantToDeployGRD
+    ////////////////////////////////////////////////////////
     stage('test') {
         stage_map = [:]
         parallel(createStages(unionWantToDeply))
-    }
-
-    stage('Build') {
-        sh "echo 'aaa'"
     }
     stage ('Code Build') {
         parallel(
@@ -98,9 +95,6 @@ node {
                 }
             }
         )
-    }
-    stage ('Maven Build - what if we skip') {
-        sh "echo 'it would work'" 
     }
     stage('ReCycle') {
         stage_map = [:]
