@@ -35,7 +35,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 }
             ); 
         } 
-    stage_map.put('test-2', {echo 'test2'})
+    stage_map.put('test-2grd', {echo 'test2'})
     return stage_map
     }
     def createStagesMAVEN(wantToDeployDef, stage_map) {
@@ -60,7 +60,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 }
             ); 
         }
-    stage_map.put('test-2', {echo 'test2'})
+    stage_map.put('test-2mvn', {echo 'test2'})
     return stage_map
     }
 node {
@@ -81,23 +81,7 @@ node {
     //])
     def wantToDeployMVN = [
 	    'operations' : deployoperations,
-	    'transaction' : deploytransaction,
-        'm1': 'yes',
-        'm11': 'yes',
-        'm22': 'no',
-        'm12': 'yes',
-        'm23': 'no',
-        'm13': 'yes',
-        'm24': 'no',
-        'm24': 'no',
-        'm13': 'yes',
-        'm113': 'yes',
-        'm223': 'no',
-        'm123': 'yes',
-        'm233': 'no',
-        'm133': 'yes',
-        'm243': 'no',
-        'm243': 'no'
+	    'transaction' : deploytransaction
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
