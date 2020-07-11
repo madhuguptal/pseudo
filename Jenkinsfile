@@ -1,13 +1,13 @@
 import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
     def createStageAsWanted(stageName, loopKey, loopValue) {
          stage_map.put(
-                'Terminateec2-' +key,
+                'Terminateec2-' +loopKey,
                 {
-                    if(val == 'no'){
+                    if(loopValue == 'no'){
                         echo 'skipping stage...'
-                        Utils.markStageSkippedForConditional('Terminateec2-' +key)
+                        Utils.markStageSkippedForConditional('Terminateec2-' +loopKey)
                     } else {
-                        sh "echo '${ENVIRONMENT}-capp-${val}'"
+                        sh "echo '${ENVIRONMENT}-capp-${loopValue}'"
                     }
                 }
             );
