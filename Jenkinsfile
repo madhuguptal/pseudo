@@ -4,8 +4,8 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                 stageName + loopKey,
                 {
                     if(loopValue == 'no'){
-                        echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('Terminateec2-' +loopKey)
+                        echo 'skipping stage...'                        
                     } else {
                         sh "${cmd}"
                     }
@@ -103,15 +103,11 @@ node {
     //])
     def wantToDeployMVN = [
 	    'deployoperations' : deployoperations,
-	    'deploytransaction' : deploytransaction,
-	    'm1': 'yes',
-	    'm2': 'no',
-	    'm3': 'yes'
+	    'deploytransaction' : deploytransaction
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
-        'r23': 'no',
-        'r134': 'yes'
+        'gwMOD1': 'no'
 	]
 
     stage('test') {
