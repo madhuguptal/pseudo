@@ -102,9 +102,9 @@ node {
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
         'r23': 'no',
-        'r13': 'yes',
+        'r134': 'yes',
         'r24': 'no',
-        'r24': 'no',
+        'r244': 'no',
         'r13': 'yes'
 	]
 
