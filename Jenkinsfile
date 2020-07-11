@@ -66,7 +66,6 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
 node {
     properties([
         parameters([
-            string(name: 'submodule', defaultValue: ''),
             choice(choices: ['uat' , 'lt', 'prod'], description: 'Select Environment', name: 'ENVIRONMENT'),
             //maven build
             string(defaultValue: "bKash-customerapp-mw", description: 'MW Repo:', name: 'MWREPO'),
@@ -76,7 +75,6 @@ node {
             choice(name: 'deploymentbankmw', choices: ['yes' , 'no'], description: 'Do you want create ami for bkash-to-bank-mw?')
         ])
     ])
-    def mvnHome = [a: 1, b: 2]
     //def userInput = input(id: 'userInput', message: 'ENV?',
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
@@ -90,10 +88,6 @@ node {
     stage('test') {
         parallel(createStages(wantToDeploy))
     }
-    stage('Checkout') {
-        sh "echo ${submodule}"
-    }
-
     stage('Build') {
         sh "echo 'aaa'"
     }
