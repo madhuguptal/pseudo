@@ -135,19 +135,30 @@ node {
         sh "echo 'aaa'"
     }
     stage ('Code Build') {
-        stage_map = [:]
-        need_this_stage = 0
-        if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
-            stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
-            need_this_stage = 1
-        }
-        if(wantToDeployGRD["deploymentbankmw"] == 'yes' ){
-            stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
-            need_this_stage = 1
-        }
-        if(need_this_stage == 1){
-            parallel(stage_map)
-        }
+        parallel(
+            maven: {
+                stage_map = [:]
+                need_this_stage = 0
+                if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
+                    stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
+                    need_this_stage = 1
+                }
+                if(need_this_stage == 1){
+                    parallel(stage_map)
+                }
+            },
+            gradle: {
+                stage_map = [:]
+                need_this_stage = 0
+                if(wantToDeployGRD["deploymentbankmw"] == 'yes' ){
+                    stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
+                    need_this_stage = 1
+                }
+                if(need_this_stage == 1){
+                    parallel(stage_map)
+                }
+            }
+        )
     }
     stage ('Maven Build - what if we skip') {
         sh "echo 'it would work'"
@@ -155,7 +166,7 @@ node {
     stage('Build') {
         stage_map = [:]
         need_this_stage = 0
-        if((wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes') && ENVIRONMENT == 'PROD'){
+        if(wantToDeployMVN["deployoperations"] == 'yes' && ENVIRONMENT == 'PROD'){
             stage_map = RecycleEc2(wantToDeployMVN, stage_map)
             need_this_stage = 1
         }
