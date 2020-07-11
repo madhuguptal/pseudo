@@ -78,7 +78,7 @@ node {
             maven: {
                 stage_map = [:]
                 need_this_stage = 0
-                if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
+                if(wantToDeployMVN.containsValue('yes')){
                     stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
                     need_this_stage = 1
                 }
@@ -89,7 +89,7 @@ node {
             gradle: {
                 stage_map = [:]
                 need_this_stage = 0
-                if(wantToDeployGRD["deploymentbankmw"] == 'yes' ){
+                if(wantToDeployGRD.containsValue('yes')){
                     stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
                     need_this_stage = 1
                 }
