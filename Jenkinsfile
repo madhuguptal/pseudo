@@ -141,9 +141,9 @@ node {
                     stage_map = createStagesGRADLE(wantToDeployGRD,stage_map)
                     need_this_stage = 1
                 }
-            }
-            if(need_this_stage == 1){
+                if(need_this_stage == 1){
                     parallel(stage_map)
+                }
             }
         )
     }
