@@ -19,7 +19,8 @@ pipeline {
             }
             post {
                 cleanup {
-                    releaseResources()
+                    script { ... }
+                    sh "remove lock"
                 }
             }
         }
