@@ -10,7 +10,7 @@ pipeline {
             steps {
                 parallel (
                     unit: {
-                        node("main-builder") {
+                        node() {
                             script {
                                 echo "Doing steps..."
                                 sleep 20
