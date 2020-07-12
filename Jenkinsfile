@@ -19,7 +19,7 @@ pipeline {
             }
             post {
                 cleanup {
-                    script { ... }
+                    script { sleep 20 }
                     sh "remove lock"
                 }
             }
