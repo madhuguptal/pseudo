@@ -98,7 +98,7 @@ node {
     //])
     def wantToDeployMVN = [
 	    'deployoperations' : [deployoperations, "jar", 'alpha', 'zulu'],
-	    'deploytransaction' [deployoperations, "war", 'bravo', 'tango']
+	    'deploytransaction': [deployoperations, "war", 'bravo', 'tango']
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
