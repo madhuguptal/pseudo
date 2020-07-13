@@ -71,7 +71,7 @@ import org.jenkinsci.plugins.pipeline.modeldefinition.Utils
                         echo 'skipping stage...'
                         Utils.markStageSkippedForConditional('packBuild-' +key)
                     } else {
-                        sh "echo '#cp /${val}/target/${val}-0.0.1-SNAPSHOT.war /ansible/${val}.war'"
+                        sh "echo '#cp /${val[2]}/target/${val[1]}-0.0.1-SNAPSHOT.war /ansible/${val[0]}.war'"
                     }
 
                 }
@@ -97,29 +97,13 @@ node {
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
     def wantToDeployMVN = [
-	    'deployoperations' : deployoperations,
-	    'deploytransaction' : deploytransaction,
-	    'm1': 'no',
-	    'm2': 'no',
-	    'm3': 'no',
-	    'm4': 'no',
-	    'm5': 'no',
-	    'm6': 'no',
-	    'm7': 'no',
-	    'm8': 'no',
-	    'm9': 'no',
-	    'm10': 'no',
-	    'm11': 'no',
-	    'm12': 'no',
-	    'm13': 'no'
+	    'deployoperations' : [deployoperations, "jar", 'alpha', 'zulu']
+	    'deploytransaction' [deployoperations, "war", 'bravo', 'tango']
 	]
     def wantToDeployGRD = [
         'deploymentbankmw' : deploymentbankmw,
         'r23': 'no',
-        'r134': 'yes',
-        'r24': 'no',
-        'r244': 'no',
-        'r13': 'yes'
+        'r134': 'yes'
 	]
 
     stage('test') {
@@ -138,7 +122,7 @@ node {
             maven: {
                 stage_map = [:]
                 need_this_stage = 0
-                if(wantToDeployMVN["deployoperations"] == 'yes' || wantToDeployMVN["deploytransaction"] == 'yes'){
+                if(wantToDeployMVN["deployoperations"][0] == 'yes' || wantToDeployMVN["deploytransaction"][0] == 'yes'){
                     stage_map = createStagesMAVEN(wantToDeployMVN,stage_map)
                     need_this_stage = 1
                 }
