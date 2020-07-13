@@ -97,7 +97,7 @@ node {
     //parameters: [[$class: 'ChoiceParameterDefinition', description:'Select ENV to deploy', name:'nameChoice', choices: "UAT\nProd"]
     //])
     def wantToDeployMVN = [
-	    'deployoperations' : [deployoperations, "jar", 'alpha', 'zulu']
+	    'deployoperations' : [deployoperations, "jar", 'alpha', 'zulu'],
 	    'deploytransaction' [deployoperations, "war", 'bravo', 'tango']
 	]
     def wantToDeployGRD = [
