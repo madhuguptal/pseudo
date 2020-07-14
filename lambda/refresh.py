@@ -1,4 +1,5 @@
 import sys as loadPackagesByOrder
+import os
 from pip._internal import main
 boto3Version="1.14.14"
 paramsToInstallBoto3 = "install -I -q boto3=={0} -t /tmp/ --no-cache-dir --disable-pip-version-check".format(boto3Version).split()
@@ -27,7 +28,7 @@ def startInstanceRefresh(asgName):
         return e
 
 def main_handler(event, context):
-    asgNames = event.get('asgNames')
+    asgNames =  os.environ['asgNames']
     for asgName in asgNames:
         if elibilityCheck(asgName) == True : print(startInstanceRefresh(asgName))
 
