@@ -1,7 +1,7 @@
 
 data "archive_file" "ec2Refresh" {
   type = "zip"
-  source_dir = "."
+  source_dir = "./refresh.py"
   output_path = "./refresh.zip"
 }
 
@@ -45,7 +45,7 @@ EOF
 }
 
 
-resource "aws_iam_role_policy_attachment" "sentinel-lambda-cloudwatch-log-policy" {
+resource "aws_iam_role_policy_attachment" "ec2RefreshPolicy" {
   role = aws_iam_role.ec2Refresh.name
   policy_arn = aws_iam_policy.ec2AutoPolicy.arn
 }
