@@ -83,17 +83,17 @@ resource "aws_cloudwatch_event_rule" "refreshEC2" {
 }
 
 resource "aws_cloudwatch_event_target" "refreshEC2" {
-    rule = "${aws_cloudwatch_event_rule.refreshEC2.name}"
+    rule = aws_cloudwatch_event_rule.refreshEC2.name
     target_id = "check_foo"
-    arn = "${aws_lambda_function.check_foo.arn}"
+    arn = aws_lambda_function.check_foo.arn
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_foo" {
     statement_id = "AllowExecutionFromCloudWatch"
     action = "lambda:InvokeFunction"
-    function_name = "${aws_lambda_function.check_foo.function_name}"
+    function_name = aws_lambda_function.check_foo.function_name
     principal = "events.amazonaws.com"
-    source_arn = "${aws_cloudwatch_event_rule.every_five_minutes.arn}"
+    source_arn = aws_cloudwatch_event_rule.every_five_minutes.arn
 }
 resource "aws_cloudwatch_event_rule" "refreshEC2" {
   name = "every-fifteen-minutes"
