@@ -23,7 +23,7 @@ def elibilityCheck(asgName):
         return True
 def startInstanceRefresh(asgName):
     try:
-        client.start_instance_refresh(AutoScalingGroupName=asgName,Strategy='Rolling',Preferences={'MinHealthyPercentage': 80, "InstanceWarmup": 600})
+        client.start_instance_refresh(AutoScalingGroupName=asgName,Strategy='Rolling',Preferences={'MinHealthyPercentage': 80, "InstanceWarmup": 400})
     except Exception as e:
         return e
 
