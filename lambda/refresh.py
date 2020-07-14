@@ -28,6 +28,6 @@ def startInstanceRefresh(asgName):
         return e
 
 def main_handler(event, context):
-    for asgName in for asgName in os.environ['asgNames'].split():
+    for asgName in os.environ['asgNames'].split():
         if elibilityCheck(asgName) == True : print(startInstanceRefresh(asgName))
 
