@@ -46,9 +46,8 @@ EOF
 
 
 resource "aws_iam_role_policy_attachment" "sentinel-lambda-cloudwatch-log-policy" {
-  depends_on = ["aws_iam_policy.ec2AutoPolicy"]
   role = aws_iam_role.ec2Refresh.name
-  policy_arn = aws_iam_policy.ec2AutoPolicy
+  policy_arn = aws_iam_policy.ec2AutoPolicy.arn
 }
 
 
