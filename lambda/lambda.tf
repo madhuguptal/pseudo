@@ -78,9 +78,9 @@ EOF
 resource "aws_lambda_permission" "allow_cloudwatch_to_call" {
     statement_id = "AllowExecutionFromCloudWatch"
     action = "lambda:InvokeFunction"
-    function_name = aws_lambda_function.check_foo.function_name
+    function_name = aws_lambda_function.ec2Refresh.function_name
     principal = "events.amazonaws.com"
-    source_arn = aws_cloudwatch_event_rule.every_five_minutes.arn
+    source_arn = aws_cloudwatch_event_rule.refreshEC2.arn
 }
 resource "aws_cloudwatch_event_rule" "refreshEC2" {
   name = "every-fifteen-minutes"
