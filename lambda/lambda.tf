@@ -10,7 +10,7 @@ resource "aws_lambda_function" "ec2Refresh" {
   function_name = "ec2Refresh-tf"
   role = aws_iam_role.ec2Refresh.arn
   handler          = "lambda_function.lambda_handler"
-  runtime          = "Python 3.8"
+  runtime          = "python3.8"
   timeout          = "90"
   memory_size      = "128"
 #  source_code_hash = filebase64(file("${data.archive_file.ec2Refresh.output_path}"))
