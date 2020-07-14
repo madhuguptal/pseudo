@@ -71,11 +71,13 @@ resource "aws_iam_policy" "ec2AutoPolicy" {
             "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*"
         },
         {
+            "Sid": "VisualEditor3",
             "Effect": "Allow",
             "Action": "logs:CreateLogGroup",
             "Resource": "arn:aws:logs:ap-southeast-1:354285753755:*"
         },
         {
+            "Sid": "VisualEditor4",
             "Effect": "Allow",
             "Action": [
                 "logs:CreateLogStream",
