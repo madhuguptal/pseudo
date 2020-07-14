@@ -111,10 +111,10 @@ resource "aws_cloudwatch_event_target" "refreshEC2" {
   arn = aws_lambda_function.ec2Refresh.arn
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_ec2Refresh" {
-  statement_id = "AllowExecutionFromCloudWatch"
-  action = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.ec2Refresh.function_name
-  principal = "events.amazonaws.com"
-  source_arn = aws_cloudwatch_event_rule.refreshEC2.arn
-}
+#resource "aws_lambda_permission" "allow_cloudwatch_to_call_ec2Refresh" {
+#  statement_id = "AllowExecutionFromCloudWatch"
+#  action = "lambda:InvokeFunction"
+#  function_name = aws_lambda_function.ec2Refresh.function_name
+#  principal = "events.amazonaws.com"
+#  source_arn = aws_cloudwatch_event_rule.refreshEC2.arn
+#}
