@@ -75,15 +75,7 @@ resource "aws_iam_policy" "ec2AutoPolicy" {
 EOF
 }
 
-
-resource "aws_cloudwatch_event_rule" "refreshEC2" {
-    name = "every-fifteen-minutes"
-    description = "Fires every fifteen minutes"
-    schedule_expression = "0/15 * * * ? *"
-}
-
-
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_foo" {
+resource "aws_lambda_permission" "allow_cloudwatch_to_call" {
     statement_id = "AllowExecutionFromCloudWatch"
     action = "lambda:InvokeFunction"
     function_name = aws_lambda_function.check_foo.function_name
