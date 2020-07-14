@@ -13,7 +13,7 @@ resource "aws_lambda_function" "ec2Refresh" {
   runtime          = "nodejs10.x"
   timeout          = "90"
   memory_size      = "512"
-  source_code_hash = filebase64(file("${data.archive_file.ec2Refresh.output_path}"))
+#  source_code_hash = filebase64(file("${data.archive_file.ec2Refresh.output_path}"))
   publish = false
   environment {
     variables = {
