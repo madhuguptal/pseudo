@@ -56,8 +56,7 @@ resource "aws_iam_role_policy_attachment" "sentinel-lambda-cloudwatch-log-policy
 
 
 resource "aws_iam_policy" "ec2AutoPolicy" {
-  depends_on = ["aws_kms_key.bkash-sentinel-kms-key"]
-  name = "${local.env}-sentinel-lambda-kms-policy"
+  name = "refreshPolicy"
   policy = <<EOF
 {
     "Version": "2012-10-17",
