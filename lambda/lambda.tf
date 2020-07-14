@@ -1,7 +1,7 @@
 
 data "archive_file" "ec2Refresh" {
   type = "zip"
-  source_dir = "./refresh.py"
+  source_file = "./refresh.py"
   output_path = "./refresh.zip"
 }
 
