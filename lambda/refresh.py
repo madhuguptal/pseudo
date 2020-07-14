@@ -22,10 +22,12 @@ def elibilityCheck(asgName):
         return True
 def startInstanceRefresh(asgName):
     try:
-        response = response = client.start_instance_refresh(AutoScalingGroupName=asgName,Strategy='Rolling',Preferences={'MinHealthyPercentage': 80, "InstanceWarmup": 600,})
+        response = response = client.start_instance_refresh(AutoScalingGroupName=asgName,Strategy='Rolling',Preferences={'MinHealthyPercentage': 80, "InstanceWarmup": 600})
     except Exception as e:
         return e
 
 def main_handler(event, context):
-    if elibilityCheck('ring-eks-worker-asg') == True : print(startInstanceRefresh('ring-eks-worker-asg'))
+    asgNames = event.get('asgNames')
+    for asgName in asgNames:
+        if elibilityCheck(asgName) == True : print(startInstanceRefresh(asgName))
 
