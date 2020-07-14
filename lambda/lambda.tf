@@ -85,7 +85,7 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call" {
 resource "aws_cloudwatch_event_rule" "refreshEC2" {
   name = "every-fifteen-minutes"
   description = "Fires every fifteen minutes"
-  schedule_expression = "0/15 * * * ? *"
+  schedule_expression = cron(0/15 * * * ? *)
 }
 
 resource "aws_cloudwatch_event_target" "refreshEC2" {
