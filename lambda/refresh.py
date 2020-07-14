@@ -26,6 +26,6 @@ def startInstanceRefresh(asgName):
     except Exception as e:
         return e
 
-def lambda_handler(event, context):
+def main_handler(event, context):
     if elibilityCheck('ring-eks-worker-asg') == True : print(startInstanceRefresh('ring-eks-worker-asg'))
 
