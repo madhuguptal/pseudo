@@ -7,13 +7,14 @@ data "archive_file" "ec2Refresh" {
 
 resource "aws_lambda_function" "ec2Refresh" {
   filename = data.archive_file.ec2Refresh.output_path
+  source_code_hash = data.archive_file.ec2Refresh.output_base64sha256
   function_name = "ec2Refresh-tf"
   role = aws_iam_role.ec2Refresh.arn
   handler          = "refresh.main_handler"
   runtime          = "python3.8"
   timeout          = "90"
   memory_size      = "512"
-#  source_code_hash = filebase64(file("${data.archive_file.ec2Refresh.output_path}"))
+  #  source_code_hash = filebase64(file("${data.archive_file.ec2Refresh.output_path}"))
   publish = false
   environment {
     variables = {
