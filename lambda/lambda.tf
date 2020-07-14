@@ -69,6 +69,21 @@ resource "aws_iam_policy" "ec2AutoPolicy" {
             "Effect": "Allow",
             "Action": "autoscaling:StartInstanceRefresh",
             "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:ap-southeast-1:354285753755:*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:ap-southeast-1:354285753755:log-group:/aws/lambda/ec2Refresh-tf:*"
+            ]
         }
     ]
 }
@@ -85,7 +100,7 @@ resource "aws_lambda_permission" "allow_cloudwatch_to_call" {
 resource "aws_cloudwatch_event_rule" "refreshEC2" {
   name = "every-fifteen-minutes"
   description = "Fires every fifteen minutes"
-  schedule_expression = cron(0/15 * * * ? *)
+  schedule_expression = "cron(0/15 * * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "refreshEC2" {
