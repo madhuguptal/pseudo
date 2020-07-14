@@ -20,9 +20,6 @@ resource "aws_lambda_function" "ec2Refresh" {
       REFERRAL_DYNAMO_TABLE = "ec2Refresh"
     }
   }
-  tags {
-    Name        = "ec2Refresh"
-  }
 }
 
 resource "aws_iam_role" "ec2Refresh" {
