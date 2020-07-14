@@ -18,7 +18,7 @@ resource "aws_lambda_function" "ec2Refresh" {
   publish = false
   environment {
     variables = {
-      asgNames = "['asgName2', 'asgName2']"
+      asgNames = "asgName1 asgName2"
     }
   }
 }
