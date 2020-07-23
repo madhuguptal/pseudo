@@ -13,6 +13,7 @@ pipeline {
                         dir('test'){
                             git (url: "https://github.com/amir-hossain-project/hello-world-java.git",branch: 'master')
                             sh "pwd"
+                            sh "ls -alh"
                         }
                     }
                 }
