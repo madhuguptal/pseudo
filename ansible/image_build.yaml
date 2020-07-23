@@ -1,7 +1,0 @@
-- hosts: deployment
-  vars_files:
-    - "./var_files/{{ env }}_varfile.yml"
-  connection: local
-  hosts: localhost
-  roles:
-    - image_build
