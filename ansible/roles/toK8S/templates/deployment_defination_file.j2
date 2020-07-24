@@ -17,3 +17,10 @@ spec:
                   imagePullPolicy: Always
                   ports:
                       - containerPort: 8181
+            topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: node
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  name: {{ env }}-{{ project_name }}-{{ module }}
